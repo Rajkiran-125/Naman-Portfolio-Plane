@@ -962,6 +962,11 @@ input:required {
   color: #252525;
 }
 
+.footer-content .copywrite-text i {
+  /* margin-bottom: 0; */
+  /* color: red; */
+}
+
 @media only screen and (max-width: 767px) {
   .footer-content .copywrite-text p {
     font-size: 12px;
