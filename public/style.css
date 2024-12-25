@@ -984,7 +984,8 @@ input:required {
     max-width: 50px;
   }
 }
-.footer-logo{
+
+.footer-logo {
   width: 14%;
 }
 
@@ -1117,14 +1118,21 @@ input:required {
 .about-video-area {
   position: relative;
   z-index: 1;
-  border-radius: 10px;
+  /* border-radius: 10px; */
+  border: 1px solid black;
+    padding: 30px;
 }
 
-.about-video-area img {
+/* .about-video-area .video-icon {
   -webkit-box-shadow: 3px 0 24px rgba(0, 0, 0, 0.15);
   box-shadow: 3px 0 24px rgba(0, 0, 0, 0.15);
   width: 100%;
   border-radius: 10px;
+} */
+.about-video-contener {
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .about-video-area .video-icon a {
