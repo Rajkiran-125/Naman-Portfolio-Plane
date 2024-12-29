@@ -66,8 +66,9 @@
   color: #232323;
   display: inline-block;
   margin-right: 30px;
-  width: 20%;
+  width: 250px;
 }
+
 
 .classy-navbar .nav-brand:focus,
 .classy-navbar .nav-brand:hover {

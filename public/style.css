@@ -671,7 +671,7 @@ input:required {
 
 @media only screen and (max-width: 767px) {
   .classy-nav-container .classy-navbar .nav-brand {
-    max-width: 90px;
+    max-width: 150px;
     margin-right: 15px;
   }
 }
@@ -1070,6 +1070,7 @@ input:required {
   .single-instagram-item .instagram-hover-content a span {
     font-size: 12px;
   }
+  
 }
 
 @media only screen and (min-width: 768px) and (max-width: 991px) {
@@ -1082,6 +1083,12 @@ input:required {
   .single-instagram-item .instagram-hover-content a span {
     font-size: 12px;
   }
+  /* .single-instagram-item{
+    width: 120px;
+  }
+  .owl-item{
+    width: 120px !important;
+  } */
 }
 
 .single-instagram-item:hover img {
@@ -2149,7 +2156,7 @@ input:required {
   -webkit-transition-duration: 500ms;
   -o-transition-duration: 500ms;
   transition-duration: 500ms;
-}
+} 
 
 @media only screen and (max-width: 767px) {
   .alime-projects-menu .portfolio-menu .btn {
