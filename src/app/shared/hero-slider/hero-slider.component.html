@@ -1,0 +1,43 @@
+<section class="welcome-area">
+  <div class="welcome-slides">
+    @for (slide of current(); track active()) {
+      <div
+        class="single-welcome-slide bg-img bg-overlay"
+        [style.background-image]="'url(' + slide.background + ')'"
+      >
+        <div class="container h-100">
+          <div class="row h-100 align-items-center">
+            <div class="col-12 col-lg-8 col-xl-6">
+              <div class="welcome-text">
+                <h2 [ngClass]="'animated ' + slide.anim" style="animation-delay: 300ms">
+                  @for (line of slide.titleLines; track $index; let last = $last) {
+                    {{ line }}@if (!last) {<br />}
+                  }
+                </h2>
+                <p [ngClass]="'animated ' + slide.anim" style="animation-delay: 500ms">
+                  {{ slide.text }}
+                </p>
+                <div
+                  class="hero-btn-group"
+                  [ngClass]="'animated ' + slide.anim"
+                  style="animation-delay: 700ms"
+                >
+                  <a routerLink="/contact" class="btn alime-btn mb-3 mb-sm-0 mr-4">Contact Me</a>
+                  <a class="hero-mail-contact" [href]="'mailto:' + email">{{ email }}</a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    }
+
+    <!-- Navigation arrows -->
+    <button type="button" class="owl-prev" (click)="prev()" aria-label="Previous slide">
+      <i class="ti-arrow-left"></i>
+    </button>
+    <button type="button" class="owl-next" (click)="next()" aria-label="Next slide">
+      <i class="ti-arrow-right"></i>
+    </button>
+  </div>
+</section>

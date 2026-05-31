@@ -67,3 +67,18 @@ node_modules/
 
 # dataconnect generated files
 .dataconnect
+
+# ===== Angular workspace =====
+/dist
+/tmp
+/out-tsc
+/bazel-out
+/.angular/cache
+.sass-cache/
+/connect.lock
+/coverage
+/libpeerconnection.log
+testem.log
+/typings
+.DS_Store
+Thumbs.db

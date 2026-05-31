@@ -1,0 +1,29 @@
+<app-breadcrumb title="Latest Blog" crumb="Blog" />
+
+<!-- Blog Area -->
+<div class="alime-blog-area section-padding-80-0 mb-70">
+  <div class="container">
+    <div class="row">
+      @for (post of posts; track $index) {
+        <div [class]="post.wide ? 'col-12 col-lg-6' : 'col-12 col-sm-6 col-lg-3'">
+          <div class="single-post-area" appAnimateOnScroll="fadeInUpBig" animateDelay="100ms">
+            <!-- Post Thumbnail -->
+            <a class="post-thumbnail"><img [src]="post.image" alt="" /></a>
+            <!-- Post Category -->
+            <a class="btn post-catagory">{{ post.category }}</a>
+            <!-- Post Content -->
+            <div class="post-content">
+              <div class="post-meta">
+                <a>{{ post.date }}</a>
+                <a>{{ post.comments }}</a>
+              </div>
+              <a class="post-title">{{ post.title }}</a>
+            </div>
+          </div>
+        </div>
+      }
+    </div>
+  </div>
+</div>
+
+<app-instagram-feed />

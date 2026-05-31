@@ -1,0 +1,88 @@
+<header class="header-area">
+  <div class="main-header-area" [class.sticky]="sticky()">
+    <div
+      class="classy-nav-container"
+      [class.breakpoint-off]="!isMobile()"
+      [class.breakpoint-on]="isMobile()"
+    >
+      <div class="container">
+        <nav class="classy-navbar justify-content-between" id="alimeNav">
+          <!-- Logo -->
+          <a class="nav-brand" routerLink="/" (click)="closeMenu()">
+            <img [src]="logo" alt="Naman Gupta" />
+          </a>
+
+          <!-- Navbar Toggler -->
+          <div class="classy-navbar-toggler" (click)="toggleMenu()">
+            <span class="navbarToggler" [class.active]="menuOpen()">
+              <span></span><span></span><span></span>
+            </span>
+          </div>
+
+          <!-- Menu -->
+          <div class="classy-menu" [class.menu-on]="menuOpen()">
+            <!-- Close Button -->
+            <div class="classycloseIcon" (click)="closeMenu()">
+              <div class="cross-wrap"><span class="top"></span><span class="bottom"></span></div>
+            </div>
+
+            <div class="classynav">
+              <ul id="nav">
+                @for (item of navItems; track item.label) {
+                  <li
+                    routerLinkActive="active"
+                    [routerLinkActiveOptions]="{ exact: item.path === '' }"
+                  >
+                    <a [routerLink]="item.path ? '/' + item.path : '/'" (click)="closeMenu()">
+                      {{ item.label }}
+                    </a>
+                  </li>
+                }
+
+                <!-- Social dropdown -->
+                <li class="has-down" [class.active]="socialOpen()">
+                  <a href="#" (click)="toggleSocial($event)">Social</a>
+                  @if (isMobile()) {
+                    <span class="dd-trigger" (click)="toggleSocial($event)"></span>
+                  }
+                  <ul class="dropdown">
+                    @for (social of socialLinks; track social.label) {
+                      <li>
+                        <a [href]="social.url" target="_blank" rel="noopener">- {{ social.label }}</a>
+                      </li>
+                    }
+                  </ul>
+                </li>
+
+                <!-- Theme toggle -->
+                <li class="theme-toggle-item">
+                  <button
+                    type="button"
+                    class="theme-toggle"
+                    (click)="toggleTheme()"
+                    [attr.aria-label]="
+                      theme() === 'dark' ? 'Switch to light mode' : 'Switch to dark mode'
+                    "
+                    [attr.aria-pressed]="theme() === 'dark'"
+                    title="Toggle dark mode"
+                  >
+                    @if (theme() === 'dark') {
+                      <i class="fa-solid fa-sun"></i>
+                    } @else {
+                      <i class="fa-solid fa-moon"></i>
+                    }
+                  </button>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </nav>
+      </div>
+    </div>
+  </div>
+
+  <!-- Mobile menu backdrop -->
+  @if (isMobile() && menuOpen()) {
+    <div class="nav-backdrop" (click)="closeMenu()"></div>
+  }
+</header>

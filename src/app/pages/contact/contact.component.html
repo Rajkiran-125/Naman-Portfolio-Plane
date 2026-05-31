@@ -1,0 +1,48 @@
+<app-breadcrumb title="Contact" crumb="Contact" />
+
+<!-- Contact Area -->
+<div class="contact-area section-padding-80-50">
+  <div class="container">
+    <div class="row">
+      <div class="col-12 col-lg-6">
+        <h2 class="contact-title mb-30">Let’s Work <br />Together</h2>
+      </div>
+      <div class="col-12 col-md-6 col-lg-3">
+        <div class="contact-info mb-30">
+          <p>Email</p>
+          <a [href]="'mailto:' + email">{{ email }}</a>
+        </div>
+        <div class="contact-info mb-30">
+          <p>Call Us</p>
+          <a [href]="'tel:' + phone">{{ phone }}</a>
+        </div>
+      </div>
+      <div class="col-12 col-md-6 col-lg-3">
+        <div class="contact-info mb-30">
+          <p>Address</p>
+          <a>{{ address }}</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Map Area -->
+<div class="map-area section-padding-0-80">
+  <div class="container">
+    <div id="map">
+      <iframe
+        [src]="mapUrl"
+        width="600"
+        height="450"
+        style="border: 0"
+        allowfullscreen
+        loading="lazy"
+        referrerpolicy="no-referrer-when-downgrade"
+        title="Mumbai, Maharashtra"
+      ></iframe>
+    </div>
+  </div>
+</div>
+
+<app-instagram-feed [showHeading]="false" />

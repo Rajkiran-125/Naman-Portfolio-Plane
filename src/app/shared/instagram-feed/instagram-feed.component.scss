@@ -1,0 +1,65 @@
+:host {
+  display: block;
+}
+
+.ig-feed {
+  overflow: hidden;
+  width: 100%;
+}
+
+.ig-track {
+  display: flex;
+  flex-wrap: nowrap;
+  width: 200%; // two identical copies of the item list
+  animation: ig-scroll 40s linear infinite;
+}
+
+.ig-feed:hover .ig-track {
+  animation-play-state: paused;
+}
+
+.ig-item {
+  // 12 items in the track (6 unique × 2) → 6 visible across at full width.
+  flex: 0 0 calc(100% / 12);
+  max-width: calc(100% / 12);
+}
+
+@media (max-width: 1199px) {
+  .ig-item {
+    flex-basis: calc(100% / 10);
+    max-width: calc(100% / 10);
+  } // 5 across
+}
+@media (max-width: 991px) {
+  .ig-item {
+    flex-basis: calc(100% / 8);
+    max-width: calc(100% / 8);
+  } // 4 across
+}
+@media (max-width: 767px) {
+  .ig-item {
+    flex-basis: calc(100% / 6);
+    max-width: calc(100% / 6);
+  } // 3 across
+}
+@media (max-width: 575px) {
+  .ig-item {
+    flex-basis: calc(100% / 4);
+    max-width: calc(100% / 4);
+  } // 2 across
+}
+
+@keyframes ig-scroll {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ig-track {
+    animation: none;
+  }
+}

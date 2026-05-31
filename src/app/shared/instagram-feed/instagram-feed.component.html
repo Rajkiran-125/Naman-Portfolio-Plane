@@ -1,0 +1,34 @@
+<section class="follow-area clearfix">
+  @if (showHeading) {
+    <div class="container">
+      <div class="row">
+        <div class="col-12">
+          <div class="section-heading text-center">
+            <h2>Follow Instagram</h2>
+            <p>{{ '@' + handle }}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  }
+
+  <div class="ig-feed">
+    <div class="ig-track">
+      @for (item of loop; track $index) {
+        <div class="ig-item">
+          <div class="single-instagram-item">
+            <img [src]="item.img" alt="Instagram post" />
+            <div
+              class="instagram-hover-content text-center d-flex align-items-center justify-content-center"
+            >
+              <a [href]="item.url" target="_blank" rel="noopener">
+                <i class="ti-instagram" aria-hidden="true"></i>
+                <span>{{ handle }}</span>
+              </a>
+            </div>
+          </div>
+        </div>
+      }
+    </div>
+  </div>
+</section>

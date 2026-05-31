@@ -1,0 +1,93 @@
+/* You can add global styles to this file, and also import other style files */
+
+/* ============================================================
+   Dark mode
+   Activated by the `dark` class on <html> (see ThemeService).
+   These overrides sit on top of the vendored assets/style.css
+   light theme; the coral accent (#fc6060) is shared by both.
+   ============================================================ */
+html.dark {
+  --dm-bg: #121212;
+  --dm-surface: #1e1e1e;
+  --dm-border: #2c2c2c;
+  --dm-text: #e8e8e8;
+  --dm-text-muted: #b0b0b0;
+  --dm-accent: #fc6060;
+
+  /* Hint native controls (scrollbars, form widgets) to render dark. */
+  color-scheme: dark;
+  background-color: var(--dm-bg);
+
+  body {
+    background-color: var(--dm-bg);
+    color: var(--dm-text);
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    color: var(--dm-text);
+  }
+
+  p {
+    color: var(--dm-text-muted);
+  }
+
+  a,
+  a:active,
+  a:focus {
+    color: var(--dm-text);
+  }
+
+  a:hover {
+    color: var(--dm-accent);
+  }
+
+  /* Light gray section bands → dark surface. */
+  .bg-gray {
+    background-color: var(--dm-surface) !important;
+  }
+
+  /* Elevated cards. */
+  .why-choose-us-content,
+  .team-content-area {
+    background-color: var(--dm-surface);
+    box-shadow: 0 4px 20px 3px rgba(0, 0, 0, 0.5);
+  }
+
+  /* Full-screen preloader background. */
+  #preloader {
+    background-color: var(--dm-bg);
+  }
+
+  /* Pagination pills. */
+  .pagination .page-link {
+    background-color: var(--dm-surface);
+    color: var(--dm-text);
+  }
+
+  /* Contact form fields. */
+  .alime-contact-form .form-control {
+    background-color: var(--dm-surface);
+    border-color: var(--dm-border);
+    color: var(--dm-text);
+
+    &::placeholder {
+      color: var(--dm-text-muted);
+    }
+  }
+
+  /* Footer text + social icons. */
+  .footer-content .copywrite-text p,
+  .footer-content .social-info a {
+    color: var(--dm-text);
+  }
+
+  .footer-content .social-info a:hover,
+  .footer-content .social-info a:focus {
+    color: var(--dm-accent);
+  }
+}

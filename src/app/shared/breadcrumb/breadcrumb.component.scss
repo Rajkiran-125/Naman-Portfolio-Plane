@@ -1,0 +1,16 @@
+:host {
+  display: block;
+}
+
+// Parallax replacement for jarallax — fixed background on capable viewports.
+.parallax-fixed {
+  background-attachment: fixed;
+  background-position: center center;
+  background-size: cover;
+}
+
+@media (max-width: 991px) {
+  .parallax-fixed {
+    background-attachment: scroll;
+  }
+}

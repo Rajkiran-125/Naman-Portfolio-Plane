@@ -1,0 +1,64 @@
+:host {
+  display: block;
+}
+
+// Reveal the Social dropdown in the mobile drawer when its parent is active.
+// (Desktop uses classy-nav's CSS :hover behaviour.)
+:host ::ng-deep .breakpoint-on .classynav ul li.has-down.active > .dropdown {
+  display: block !important;
+}
+
+// Caret toggle position inside the mobile drawer.
+:host ::ng-deep .breakpoint-on .classynav ul li.has-down {
+  .dd-trigger {
+    position: absolute;
+  }
+}
+
+.nav-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 999;
+  background-color: rgba(0, 0, 0, 0.4);
+}
+
+// Dark-mode toggle button sitting at the end of the nav list.
+.theme-toggle-item {
+  display: flex;
+  align-items: center;
+}
+
+.theme-toggle {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 38px;
+  height: 38px;
+  padding: 0;
+  border: none;
+  border-radius: 50%;
+  background-color: transparent;
+  color: #ffffff;
+  font-size: 16px;
+  cursor: pointer;
+  transition: color 300ms ease, background-color 300ms ease;
+
+  &:hover,
+  &:focus {
+    color: #fc6060;
+    outline: none;
+  }
+}
+
+// Inside the open mobile drawer the nav text is dark, so match it.
+:host ::ng-deep .breakpoint-on .theme-toggle {
+  color: #252525;
+  width: auto;
+  height: auto;
+  justify-content: flex-start;
+
+  &:hover,
+  &:focus {
+    color: #fc6060;
+  }
+}

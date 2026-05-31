@@ -1,0 +1,36 @@
+:host {
+  display: block;
+}
+
+// CSS-columns masonry (replaces isotope). Items flow top-to-bottom across columns.
+.alime-masonry {
+  column-count: 4;
+  column-gap: 30px;
+}
+
+@media (max-width: 1199px) {
+  .alime-masonry {
+    column-count: 3;
+  }
+}
+@media (max-width: 767px) {
+  .alime-masonry {
+    column-count: 2;
+    column-gap: 16px;
+  }
+}
+
+.alime-masonry-item {
+  break-inside: avoid;
+  margin-bottom: 30px;
+}
+
+@media (max-width: 767px) {
+  .alime-masonry-item {
+    margin-bottom: 16px;
+  }
+}
+
+.portfolio-img {
+  cursor: pointer;
+}

@@ -1,0 +1,26 @@
+:host {
+  display: block;
+}
+
+// Reset the <button> so the template's .owl-prev/.owl-next circle styling shows cleanly.
+.owl-prev,
+.owl-next {
+  border: none;
+  outline: none;
+  cursor: pointer;
+  padding: 0;
+}
+
+// Gentle fade as each slide is (re)rendered, mimicking the carousel transition.
+.single-welcome-slide {
+  animation: heroFade 800ms ease;
+}
+
+@keyframes heroFade {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
