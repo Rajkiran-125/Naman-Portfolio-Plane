@@ -18,12 +18,10 @@
 /* ---- Skeletons ---------------------------------------------------------- */
 .collection-skeleton__media {
   aspect-ratio: 4 / 5;
-  border-radius: var(--radius);
 }
 .collection-skeleton__label {
   height: 42px;
   margin-top: 1.2rem;
-  border-radius: 6px;
 }
 .collection-skeleton__media,
 .collection-skeleton__label {
@@ -49,7 +47,7 @@
 }
 .collections__empty i {
   font-size: 48px;
-  color: var(--accent);
+  color: var(--text-muted);
   margin-bottom: 1rem;
 }
 

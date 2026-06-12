@@ -1,15 +1,16 @@
 <footer class="footer">
   <div class="container footer__grid">
-    <!-- Lead CTA -->
+    <!-- Brand + about -->
     <div class="footer__lead">
-      <p class="eyebrow">Let's work together</p>
-      <a class="footer__email" [href]="'mailto:' + site.email">
-        {{ site.email }}
-        <i class="fa-solid fa-arrow-up-right" aria-hidden="true"></i>
-      </a>
-      <p class="footer__where">
-        <i class="fa-solid fa-location-dot" aria-hidden="true"></i> {{ site.address }}
+      <a class="footer__brand" routerLink="/">{{ site.brandName }}</a>
+      <p class="footer__role">{{ site.role }}</p>
+      <p class="footer__about">
+        A Mumbai-based photographer crafting cinematic portraits, naturescapes and
+        brand stories — chasing honest light and the quiet moments in between.
       </p>
+      <a class="footer__email link-underline" [href]="'mailto:' + site.email">
+        {{ site.email }} <i class="fa-solid fa-arrow-up-right" aria-hidden="true"></i>
+      </a>
     </div>
 
     <!-- Sitemap -->
@@ -18,34 +19,49 @@
       <ul>
         @for (item of navItems; track item.label) {
           <li>
-            <a class="footer__nav-link" [routerLink]="item.path ? '/' + item.path : '/'">
-              {{ item.label }}
-            </a>
+            <a class="footer__nav-link" [routerLink]="'/' + item.path">{{ item.label }}</a>
           </li>
         }
       </ul>
     </nav>
 
+    <!-- Contact -->
+    <div class="footer__col">
+      <h4 class="footer__heading">Studio</h4>
+      <ul class="footer__contact">
+        <li>
+          <i class="fa-solid fa-location-dot" aria-hidden="true"></i>
+          <span>{{ site.address }}</span>
+        </li>
+        <li>
+          <i class="fa-solid fa-phone" aria-hidden="true"></i>
+          <a [href]="'tel:' + site.phone">{{ site.phone }}</a>
+        </li>
+        <li>
+          <i class="fa-solid fa-envelope" aria-hidden="true"></i>
+          <a [href]="'mailto:' + site.email">{{ site.email }}</a>
+        </li>
+      </ul>
+    </div>
+
     <!-- Social -->
     <div class="footer__col">
       <h4 class="footer__heading">Follow</h4>
-      <ul>
+      <div class="footer__social">
         @for (social of socialLinks; track social.label) {
-          <li>
-            <a class="footer__nav-link" [href]="social.url" target="_blank" rel="noopener">
-              <i [class]="social.icon" aria-hidden="true"></i> {{ social.label }}
-            </a>
-          </li>
+          <a [href]="social.url" target="_blank" rel="noopener" [attr.aria-label]="social.label">
+            <i [class]="social.icon" aria-hidden="true"></i>
+          </a>
         }
-      </ul>
+      </div>
     </div>
   </div>
 
   <div class="container footer__bottom">
-    <span class="footer__brand">{{ site.brandName }}</span>
-    <p class="footer__copy">
-      © {{ year }} {{ site.brandName }}. Crafted by
-      <a [href]="site.authorUrl" target="_blank" rel="noopener" class="link-underline">{{ site.authorName }}</a>
+    <p class="footer__copy">© {{ year }} {{ site.brandName }}. All rights reserved.</p>
+    <p class="footer__credit">
+      Crafted by
+      <a [href]="site.authorUrl" target="_blank" rel="noopener" class="footer__credit-link">{{ site.authorName }}</a>
     </p>
   </div>
 </footer>

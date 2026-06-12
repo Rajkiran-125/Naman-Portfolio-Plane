@@ -13,7 +13,7 @@
           <li>
             <a
               class="nav__link"
-              [routerLink]="item.path ? '/' + item.path : '/'"
+              [routerLink]="'/' + item.path"
               routerLinkActive="is-active"
               [routerLinkActiveOptions]="{ exact: item.path === '' }"
             >

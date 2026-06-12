@@ -1,12 +1,13 @@
 <div class="gallery" [class.gallery--flush]="flushTop()">
   <div class="container container--wide">
     @if (showFilters()) {
-      <div class="gallery__filters" role="tablist" aria-label="Filter gallery">
+      <div class="gallery__filters" role="group" aria-label="Filter gallery">
         @for (f of filters; track f.label) {
           <button
             type="button"
             class="gallery__filter"
             [class.is-active]="activeFilter() === f.value"
+            [attr.aria-pressed]="activeFilter() === f.value"
             (click)="setFilter(f.value)"
           >
             {{ f.label }}

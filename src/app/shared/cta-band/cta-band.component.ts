@@ -10,8 +10,8 @@ import { AnimateOnScrollDirective } from '../animate-on-scroll.directive';
   template: `
     <section class="cta" [style.background-image]="'url(' + background() + ')'">
       <div class="cta__scrim"></div>
-      <div class="container cta__inner" appReveal>
-        <p class="eyebrow eyebrow--center">{{ eyebrow() }}</p>
+      <div class="container cta__inner" appReveal="up">
+        <p class="eyebrow eyebrow--center cta__eyebrow">{{ eyebrow() }}</p>
         <h2 class="cta__title">{{ title() }}</h2>
         <p class="cta__text">{{ text() }}</p>
         <div class="cta__actions">
@@ -24,8 +24,14 @@ import { AnimateOnScrollDirective } from '../animate-on-scroll.directive';
   styles: [
     `
       :host { display: block; }
+
+      /* Bold full-width CTA — a dark editorial band over a scrimmed cover image,
+         kept dark in both themes for a high-contrast close. Light-on-dark only:
+         never var(--accent) here (it would resolve to black in light mode). */
       .cta {
         position: relative;
+        isolation: isolate;
+        background-color: #0c0b0a;
         background-size: cover;
         background-position: center;
         background-attachment: fixed;
@@ -33,38 +39,67 @@ import { AnimateOnScrollDirective } from '../animate-on-scroll.directive';
         text-align: center;
         overflow: hidden;
       }
+
       .cta__scrim {
         position: absolute;
         inset: 0;
-        background: rgba(8, 8, 8, 0.62);
+        z-index: -1;
+        background: linear-gradient(
+          180deg,
+          rgba(8, 7, 6, 0.7) 0%,
+          rgba(8, 7, 6, 0.58) 45%,
+          rgba(8, 7, 6, 0.78) 100%
+        );
       }
+
       .cta__inner {
         position: relative;
-        padding-block: clamp(80px, 14vh, 160px);
-        max-width: 720px;
+        max-width: 760px;
+        padding-block: var(--section-y);
       }
-      .cta__inner .eyebrow { color: var(--accent-soft); margin-bottom: 1.2rem; }
+
+      .cta__eyebrow {
+        color: rgba(245, 244, 240, 0.72);
+        margin-bottom: 1.5rem;
+      }
+      /* Override the global eyebrow rules' currentColor lines for the lighter band. */
+      .cta__eyebrow::before,
+      .cta__eyebrow::after {
+        opacity: 0.4;
+      }
+
       .cta__title {
-        color: #fff;
-        font-size: clamp(2rem, 5vw, 3.6rem);
-        font-weight: 800;
-        letter-spacing: -0.03em;
+        font-family: var(--font-serif);
+        font-weight: 500;
+        color: var(--on-dark);
+        font-size: clamp(2.4rem, 6vw, 4.6rem);
+        line-height: 1.02;
+        letter-spacing: -0.005em;
       }
+
       .cta__text {
-        margin: 1.2rem auto 0;
-        max-width: 520px;
-        color: rgba(244, 242, 236, 0.85);
-        font-size: 1.05rem;
+        margin: 1.4rem auto 0;
+        max-width: 56ch;
+        color: rgba(245, 244, 240, 0.74);
+        font-size: clamp(1rem, 1.4vw, 1.18rem);
+        font-weight: 300;
+        line-height: 1.85;
       }
+
       .cta__actions {
         display: flex;
         flex-wrap: wrap;
         justify-content: center;
         gap: 1rem;
-        margin-top: 2.4rem;
+        margin-top: clamp(2.2rem, 4vw, 3rem);
       }
+
       @media (max-width: 991px) {
         .cta { background-attachment: scroll; }
+      }
+
+      @media (max-width: 480px) {
+        .cta__actions .btn { width: 100%; }
       }
     `,
   ],
@@ -72,7 +107,7 @@ import { AnimateOnScrollDirective } from '../animate-on-scroll.directive';
 })
 export class CtaBandComponent {
   readonly eyebrow = input('Ready when you are');
-  readonly title = input("Let's create something timeless");
+  readonly title = input("Let's create something worth framing.");
   readonly text = input(
     'Whether it is a portrait, a campaign or a story worth telling — let us make it beautifully.',
   );

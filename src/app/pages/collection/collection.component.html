@@ -1,36 +1,66 @@
 @if (collection(); as col) {
-  <app-breadcrumb
-    [title]="col.name"
-    [crumb]="col.name"
-    [subtitle]="col.description"
-    [background]="col.coverImage"
-  />
+  <section class="page-hero" [style.--hero-bg]="'url(' + col.coverImage + ')'">
+    <div class="container">
+      <nav class="collection-crumbs" aria-label="Breadcrumb">
+        <a routerLink="/">Home</a>
+        <span aria-hidden="true">/</span>
+        <a routerLink="/gallery">Gallery</a>
+        <span aria-hidden="true">/</span>
+        <span class="is-current" aria-current="page">{{ col.name }}</span>
+      </nav>
+      <p class="eyebrow">Collection</p>
+      <h1 class="page-hero__title">{{ col.name }}</h1>
+      <p class="page-hero__sub">
+        {{ col.description }} &mdash; {{ col.images.length }} photograph{{ col.images.length === 1 ? '' : 's' }}
+      </p>
+    </div>
+  </section>
 
-  <div class="collection-intro">
-    <div class="container collection-intro__bar">
-      <a routerLink="/gallery" class="collection-intro__back link-underline">
+  <div class="collection-bar">
+    <div class="container collection-bar__inner">
+      <a routerLink="/gallery" class="link-underline collection-bar__back">
         <i class="fa-solid fa-arrow-left" aria-hidden="true"></i> All collections
       </a>
-      <span class="collection-intro__count">{{ col.images.length }} photographs</span>
+      <span class="collection-bar__count">{{ col.images.length }} photograph{{ col.images.length === 1 ? '' : 's' }}</span>
     </div>
   </div>
 
   @if (col.images.length) {
     <app-gallery-grid [items]="col.images" [showFilters]="false" [flushTop]="true" />
   } @else {
-    <div class="collection-empty container">
-      <i class="fa-regular fa-image collection-empty__icon" aria-hidden="true"></i>
-      <p>This collection has no photos yet.</p>
-    </div>
+    <section class="section">
+      <div class="container collection-empty" appReveal="fade">
+        <i class="fa-regular fa-image collection-empty__icon" aria-hidden="true"></i>
+        <h3 class="collection-empty__title">This collection has no photos yet</h3>
+        <p>New work is on the way — check back soon.</p>
+        <a routerLink="/gallery" class="btn btn--ghost btn--sm">Browse all collections</a>
+      </div>
+    </section>
   }
 
   <app-cta-band [background]="col.coverImage" />
 } @else {
-  <app-breadcrumb title="Not found" crumb="Not found" />
-  <div class="collection-empty container">
-    <i class="fa-solid fa-magnifying-glass collection-empty__icon" aria-hidden="true"></i>
-    <h3 class="collection-empty__title">We couldn't find that collection</h3>
-    <p>It may have been moved or renamed.</p>
-    <a routerLink="/gallery" class="btn">Browse all collections</a>
-  </div>
+  <section class="page-hero">
+    <div class="container">
+      <nav class="collection-crumbs" aria-label="Breadcrumb">
+        <a routerLink="/">Home</a>
+        <span aria-hidden="true">/</span>
+        <a routerLink="/gallery">Gallery</a>
+        <span aria-hidden="true">/</span>
+        <span class="is-current" aria-current="page">Not found</span>
+      </nav>
+      <p class="eyebrow">Collection</p>
+      <h1 class="page-hero__title">Not found</h1>
+      <p class="page-hero__sub">The collection you’re looking for may have been moved or renamed.</p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container collection-empty" appReveal="fade">
+      <i class="fa-solid fa-magnifying-glass collection-empty__icon" aria-hidden="true"></i>
+      <h3 class="collection-empty__title">We couldn’t find that collection</h3>
+      <p>It may have been moved, renamed, or never existed.</p>
+      <a routerLink="/gallery" class="btn btn--ghost">Browse all collections</a>
+    </div>
+  </section>
 }

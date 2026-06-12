@@ -1,20 +1,28 @@
 <section class="ig section--soft">
   @if (showHeading) {
-    <div class="container ig__head">
+    <div class="container ig__head" appReveal="up">
       <p class="eyebrow eyebrow--center">On Instagram</p>
-      <h2 class="h2">
+      <h2 class="ig__handle serif">
         <a [href]="'https://instagram.com/' + handle" target="_blank" rel="noopener">
           {{ '@' + handle }}
         </a>
       </h2>
+      <a
+        class="link-underline ig__follow"
+        [href]="'https://instagram.com/' + handle"
+        target="_blank"
+        rel="noopener"
+      >
+        Follow <i class="fa-solid fa-arrow-right" aria-hidden="true"></i>
+      </a>
     </div>
   }
 
   <div class="ig__feed">
     <div class="ig__track">
       @for (item of loop; track $index) {
-        <a class="ig__item" [href]="item.url" target="_blank" rel="noopener" aria-label="View on Instagram">
-          <img [src]="item.img" alt="Instagram photograph" loading="lazy" />
+        <a class="ig__item" [href]="item.url" target="_blank" rel="noopener" aria-label="View this photograph on Instagram">
+          <img [src]="item.img" alt="" loading="lazy" decoding="async" />
           <span class="ig__overlay"><i class="fa-brands fa-instagram" aria-hidden="true"></i></span>
         </a>
       }

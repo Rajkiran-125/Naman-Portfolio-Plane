@@ -2,45 +2,85 @@
   display: block;
 }
 
-.collection-intro {
+/* ---- Breadcrumb (sits on the dark .page-hero — use light marks) --------- */
+.collection-crumbs {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.7em;
+  margin-bottom: 1.4rem;
+  font-family: var(--font-head);
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.6);
+}
+.collection-crumbs a {
+  color: rgba(255, 255, 255, 0.78);
+  transition: color 0.3s var(--ease);
+}
+.collection-crumbs a:hover {
+  color: #fff;
+}
+.collection-crumbs span[aria-hidden] {
+  opacity: 0.4;
+}
+.collection-crumbs .is-current {
+  color: #fff;
+}
+
+/* ---- Utility bar under the hero (light surface) ------------------------- */
+.collection-bar {
   border-bottom: 1px solid var(--border-soft);
 }
-.collection-intro__bar {
+.collection-bar__inner {
   display: flex;
+  flex-wrap: wrap;
   align-items: center;
   justify-content: space-between;
   gap: 1rem;
-  padding-block: 1.6rem;
+  padding-block: clamp(1.3rem, 2.4vw, 1.8rem);
 }
-.collection-intro__back {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.6rem;
-  font-size: 0.85rem;
+.collection-bar__back {
+  font-size: 0.78rem;
 }
-.collection-intro__count {
+.collection-bar__count {
   font-family: var(--font-head);
-  font-size: 0.75rem;
+  font-size: 0.72rem;
   font-weight: 600;
-  letter-spacing: 0.16em;
+  letter-spacing: 0.2em;
   text-transform: uppercase;
-  color: var(--accent);
+  color: var(--text-muted);
 }
 
+/* ---- Empty / not-found state -------------------------------------------- */
 .collection-empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   text-align: center;
-  padding-block: clamp(60px, 12vh, 130px);
+  padding-block: clamp(40px, 8vh, 90px);
 }
 .collection-empty__icon {
-  font-size: 56px;
-  color: var(--accent);
-  margin-bottom: 1.2rem;
+  font-size: 52px;
+  color: var(--text-muted);
+  margin-bottom: 1.4rem;
 }
 .collection-empty__title {
-  font-size: 1.6rem;
-  margin-bottom: 0.6rem;
+  font-family: var(--font-serif);
+  font-weight: 500;
+  font-size: clamp(1.7rem, 3.5vw, 2.6rem);
+  margin-bottom: 0.7rem;
 }
 .collection-empty p {
+  max-width: 46ch;
   color: var(--text-muted);
-  margin-bottom: 1.6rem;
+  margin-bottom: 2rem;
+}
+
+@media (max-width: 860px) {
+  .collection-bar__inner {
+    justify-content: flex-start;
+  }
 }

@@ -17,35 +17,45 @@ import { ChangeDetectionStrategy, Component, HostListener, signal } from '@angul
   `,
   styles: [
     `
+      /* Square, monochrome floating control — ink block, paper arrow. */
       .to-top {
         position: fixed;
         right: clamp(16px, 3vw, 32px);
         bottom: clamp(16px, 3vw, 32px);
         z-index: 1100;
-        width: 50px;
-        height: 50px;
+        width: 46px;
+        height: 46px;
         display: flex;
         align-items: center;
         justify-content: center;
-        font-size: 16px;
-        color: var(--accent-contrast);
+        font-size: 15px;
+        color: var(--bg);
         background: var(--text);
-        border-radius: 50%;
+        border: 1px solid var(--text);
+        border-radius: 0;
         box-shadow: var(--shadow-md);
         opacity: 0;
         visibility: hidden;
         transform: translateY(16px);
         transition: opacity 0.4s var(--ease), transform 0.4s var(--ease),
-          background-color 0.4s var(--ease);
+          background-color 0.4s var(--ease), color 0.4s var(--ease);
       }
       .to-top.is-visible {
         opacity: 1;
         visibility: visible;
         transform: none;
       }
+      /* Subtle invert on hover — ink block empties to its outline. */
       .to-top:hover {
-        background: var(--accent);
+        color: var(--text);
+        background: var(--bg);
         transform: translateY(-3px);
+      }
+      .to-top i {
+        transition: transform 0.4s var(--ease);
+      }
+      .to-top:hover i {
+        transform: translateY(-2px);
       }
     `,
   ],

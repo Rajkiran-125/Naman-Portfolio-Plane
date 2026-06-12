@@ -4,9 +4,9 @@ import { ActivatedRoute, RouterLink } from '@angular/router';
 import { Title } from '@angular/platform-browser';
 import { map } from 'rxjs';
 import { getCollectionBySlug } from '../../data/collections';
-import { BreadcrumbComponent } from '../../shared/breadcrumb/breadcrumb.component';
 import { GalleryGridComponent } from '../../shared/gallery-grid/gallery-grid.component';
 import { CtaBandComponent } from '../../shared/cta-band/cta-band.component';
+import { AnimateOnScrollDirective } from '../../shared/animate-on-scroll.directive';
 
 /**
  * Collection detail page (`/gallery/:slug`). Resolves the slug to a collection and
@@ -16,7 +16,7 @@ import { CtaBandComponent } from '../../shared/cta-band/cta-band.component';
 @Component({
   selector: 'app-collection',
   standalone: true,
-  imports: [RouterLink, BreadcrumbComponent, GalleryGridComponent, CtaBandComponent],
+  imports: [RouterLink, GalleryGridComponent, CtaBandComponent, AnimateOnScrollDirective],
   templateUrl: './collection.component.html',
   styleUrl: './collection.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,

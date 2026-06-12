@@ -1,14 +1,13 @@
-<section class="page-hero" [style.background-image]="'url(' + background + ')'">
-  <div class="page-hero__scrim"></div>
+<section class="page-hero" [style.--hero-bg]="'url(' + background + ')'">
   <div class="container page-hero__inner">
-    <nav class="page-hero__crumbs" aria-label="Breadcrumb">
-      <a routerLink="/">Home</a>
-      <span aria-hidden="true">/</span>
-      <span class="is-current" aria-current="page">{{ crumb }}</span>
+    <nav class="crumbs" aria-label="Breadcrumb">
+      <a class="crumbs__link" routerLink="/">Home</a>
+      <span class="crumbs__sep" aria-hidden="true">/</span>
+      <span class="crumbs__current" aria-current="page">{{ crumb }}</span>
     </nav>
     <h1 class="page-hero__title">{{ title }}</h1>
     @if (subtitle) {
-      <p class="page-hero__subtitle">{{ subtitle }}</p>
+      <p class="page-hero__sub">{{ subtitle }}</p>
     }
   </div>
 </section>

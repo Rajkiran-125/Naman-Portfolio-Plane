@@ -23,44 +23,62 @@ import { AnimateOnScrollDirective } from '../animate-on-scroll.directive';
   styles: [
     `
       :host { display: block; }
-      .stats { padding-block: clamp(56px, 8vh, 96px); }
+
+      .stats { padding-block: clamp(64px, 9vh, 110px); }
+
       .stats__grid {
         display: grid;
         grid-template-columns: repeat(4, 1fr);
-        gap: clamp(1.5rem, 4vw, 3rem);
+        gap: clamp(2.4rem, 4vw, 3.5rem) 0;
       }
+
       .stat {
         text-align: center;
         position: relative;
+        padding-inline: clamp(0.75rem, 2vw, 2rem);
       }
+
+      /* Thin vertical hairline divider between items. */
       .stat:not(:last-child)::after {
         content: '';
         position: absolute;
-        right: calc(clamp(1.5rem, 4vw, 3rem) / -2);
+        right: 0;
         top: 50%;
         transform: translateY(-50%);
         width: 1px;
-        height: 56px;
+        height: clamp(48px, 7vw, 72px);
         background: var(--border);
       }
+
+      /* Huge editorial serif number. */
       .stat__value {
         display: block;
-        font-family: var(--font-head);
-        font-size: clamp(2.4rem, 5vw, 4rem);
-        font-weight: 800;
-        letter-spacing: -0.03em;
+        font-family: var(--font-serif);
+        font-size: clamp(3rem, 6vw, 5rem);
+        font-weight: 500;
+        letter-spacing: -0.01em;
         color: var(--text);
         line-height: 1;
+        font-variant-numeric: lining-nums tabular-nums;
       }
+
+      /* Small uppercase, tracked label beneath. */
       .stat__label {
         display: block;
-        margin-top: 0.7rem;
-        font-size: 0.85rem;
-        font-weight: 500;
+        margin-top: 1.1rem;
+        font-family: var(--font-head);
+        font-size: 0.72rem;
+        font-weight: 600;
+        letter-spacing: 0.22em;
+        text-transform: uppercase;
+        line-height: 1.5;
         color: var(--text-muted);
       }
-      @media (max-width: 640px) {
-        .stats__grid { grid-template-columns: repeat(2, 1fr); gap: 2.4rem 1.5rem; }
+
+      /* Tablet & mobile: 2 columns. */
+      @media (max-width: 860px) {
+        .stats__grid { grid-template-columns: repeat(2, 1fr); }
+        /* Remove the divider after the 2nd item so each row reads cleanly. */
         .stat:nth-child(2)::after { display: none; }
       }
     `,

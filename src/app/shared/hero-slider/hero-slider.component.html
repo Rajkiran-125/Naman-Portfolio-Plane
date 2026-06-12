@@ -1,48 +1,49 @@
 <section class="hero">
-  <!-- Stacked, crossfading background layers -->
-  <div class="hero__stage" aria-hidden="true">
-    @for (slide of slides; track slide.background; let i = $index) {
-      <div
-        class="hero__layer"
-        [class.is-active]="active() === i"
-        [style.background-image]="'url(' + slide.background + ')'"
-      ></div>
-    }
-    <div class="hero__scrim"></div>
-  </div>
-
-  <div class="container hero__content">
-    @for (slide of slides; track slide.titleLines[0]; let i = $index) {
-      @if (active() === i) {
-        <div class="hero__text">
-          <p class="hero__kicker">{{ slide.kicker }}</p>
-          <h1 class="hero__title display">
-            @for (line of slide.titleLines; track $index) {
-              <span class="hero__line"><span>{{ line }}</span></span>
-            }
-          </h1>
-          <p class="hero__sub">{{ slide.text }}</p>
-          <div class="hero__cta">
-            <a routerLink="/gallery" class="btn btn--light">
-              View Portfolio <i class="fa-solid fa-arrow-right" aria-hidden="true"></i>
-            </a>
-            <a routerLink="/contact" class="btn btn--outline-light">Book a Session</a>
-          </div>
+  <!-- Auto-scrolling portfolio columns -->
+  <div class="hero__columns" aria-hidden="true">
+    @for (col of columns; track $index) {
+      <div class="hero__col" [class.is-hidden]="$index >= 2">
+        <div
+          class="hero__track"
+          [class.hero__track--down]="col.down"
+          [style.animation-duration.s]="col.duration"
+        >
+          @for (src of col.frames; track $index) {
+            <figure class="hero__frame">
+              <img [src]="src" alt="" decoding="async" />
+            </figure>
+          }
         </div>
-      }
+      </div>
     }
   </div>
 
-  <!-- Slide indicators -->
-  <div class="hero__dots">
-    @for (slide of slides; track $index; let i = $index) {
-      <button
-        type="button"
-        class="hero__dot"
-        [class.is-active]="active() === i"
-        (click)="goTo(i)"
-        [attr.aria-label]="'Go to slide ' + (i + 1)"
-      ></button>
+  <div class="hero__scrim" aria-hidden="true"></div>
+
+  <!-- Editorial overlay -->
+  <div class="container hero__content">
+    <p class="hero__kicker">Photographer · {{ location }}</p>
+    <h1 class="hero__title display">
+      <span class="hero__line"><span>Light, framed</span></span>
+      <span class="hero__line"><span>with intent.</span></span>
+    </h1>
+    <p class="hero__sub">
+      {{ role }} — chasing honest light, quiet moments and the stories that live between frames.
+    </p>
+    <div class="hero__cta">
+      <a routerLink="/collections" class="btn btn--light">
+        View Collections <i class="fa-solid fa-arrow-right" aria-hidden="true"></i>
+      </a>
+      <a routerLink="/contact" class="btn btn--outline-light">Book a Session</a>
+    </div>
+  </div>
+
+  <!-- Pinned social rail -->
+  <div class="hero__social">
+    @for (social of socialLinks; track social.label) {
+      <a [href]="social.url" target="_blank" rel="noopener" [attr.aria-label]="social.label">
+        <i [class]="social.icon" aria-hidden="true"></i>
+      </a>
     }
   </div>
 

@@ -1,10 +1,12 @@
 import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 import { INSTAGRAM_HANDLE, INSTAGRAM_ITEMS } from '../../data/instagram';
+import { AnimateOnScrollDirective } from '../animate-on-scroll.directive';
 
 /** Auto-scrolling Instagram strip (replaces the owl-carousel loop). */
 @Component({
   selector: 'app-instagram-feed',
   standalone: true,
+  imports: [AnimateOnScrollDirective],
   templateUrl: './instagram-feed.component.html',
   styleUrl: './instagram-feed.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,

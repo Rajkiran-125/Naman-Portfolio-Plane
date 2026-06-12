@@ -2,18 +2,21 @@
   <div class="container testimonials__wrap" appReveal>
     <div class="section-head section-head--center">
       <p class="eyebrow eyebrow--center">Kind words</p>
-      <h2>Trusted by brands &amp; people</h2>
+      <h2 class="testimonials__title">Trusted by brands &amp; people</h2>
     </div>
 
     <figure class="quote" [attr.key]="active()">
-      <i class="fa-solid fa-quote-left quote__icon" aria-hidden="true"></i>
+      <i class="fa-solid fa-quote-left quote__mark" aria-hidden="true"></i>
+
       <div class="quote__stars" aria-label="5 out of 5 stars">
         @for (s of stars(); track $index) { <i class="fa-solid fa-star"></i> }
       </div>
+
       <blockquote class="quote__text">{{ current().quote }}</blockquote>
+
       <figcaption class="quote__author">
-        <img class="quote__avatar" [src]="current().avatar" [alt]="current().name" loading="lazy" />
-        <span>
+        <img class="quote__avatar" [src]="current().avatar" [alt]="current().name" loading="lazy" decoding="async" />
+        <span class="quote__meta">
           <span class="quote__name">{{ current().name }}</span>
           <span class="quote__role">{{ current().role }}</span>
         </span>
@@ -21,7 +24,7 @@
     </figure>
 
     <div class="testimonials__nav">
-      <button type="button" (click)="prev()" aria-label="Previous testimonial">
+      <button type="button" class="nav-btn" (click)="prev()" aria-label="Previous testimonial">
         <i class="fa-solid fa-arrow-left"></i>
       </button>
       <div class="testimonials__dots">
@@ -35,7 +38,7 @@
           ></button>
         }
       </div>
-      <button type="button" (click)="next()" aria-label="Next testimonial">
+      <button type="button" class="nav-btn" (click)="next()" aria-label="Next testimonial">
         <i class="fa-solid fa-arrow-right"></i>
       </button>
     </div>

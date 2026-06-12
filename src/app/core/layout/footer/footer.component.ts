@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { RouterLink } from '@angular/router';
-import { NAV_ITEMS, SITE, SOCIAL_LINKS } from '../../../data/site';
+import { FOOTER_NAV, SITE, SOCIAL_LINKS } from '../../../data/site';
 
 @Component({
   selector: 'app-footer',
@@ -11,7 +11,7 @@ import { NAV_ITEMS, SITE, SOCIAL_LINKS } from '../../../data/site';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class FooterComponent {
-  readonly navItems = NAV_ITEMS;
+  readonly navItems = FOOTER_NAV;
   readonly socialLinks = SOCIAL_LINKS;
   readonly site = SITE;
   readonly year = new Date().getFullYear();

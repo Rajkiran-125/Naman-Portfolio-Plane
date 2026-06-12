@@ -11,13 +11,26 @@ export interface SocialLink {
   icon: string;
 }
 
+/**
+ * Primary navigation — a tight, gallery-first set. Collections (curated bodies of
+ * work) and Gallery (the full archive) are deliberately distinct entries.
+ */
 export const NAV_ITEMS: NavItem[] = [
   { label: 'Home', path: '' },
+  { label: 'Collections', path: 'collections' },
   { label: 'Gallery', path: 'gallery' },
-  { label: 'Services', path: 'services' },
   { label: 'About', path: 'about' },
-  { label: 'Journal', path: 'blog' },
   { label: 'Contact', path: 'contact' },
+];
+
+/**
+ * Footer navigation — the primary nav plus the secondary pages (Services,
+ * Journal) that we keep out of the lean top bar but still want discoverable.
+ */
+export const FOOTER_NAV: NavItem[] = [
+  ...NAV_ITEMS,
+  { label: 'Services', path: 'services' },
+  { label: 'Journal', path: 'blog' },
 ];
 
 export const SOCIAL_LINKS: SocialLink[] = [

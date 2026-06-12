@@ -2,108 +2,175 @@
   display: block;
 }
 
+/* Single rotating editorial quote — monochrome, generous whitespace. */
 .testimonials__wrap {
-  max-width: 880px;
+  max-width: 920px;
   text-align: center;
 }
 
+.testimonials__title {
+  font-family: var(--font-serif);
+  font-weight: 500;
+  font-size: clamp(1.9rem, 4vw, 3rem);
+  letter-spacing: 0;
+}
+
+/* ---- The quote ---------------------------------------------------------- */
 .quote {
-  margin: 0;
   position: relative;
+  margin: 0;
+  padding: clamp(2.4rem, 5vw, 4rem) clamp(1.4rem, 5vw, 4rem);
+  border: 1px solid var(--border);
+  background: var(--surface);
 }
-.quote__icon {
-  font-size: 2.6rem;
-  color: var(--accent);
-  opacity: 0.35;
-  margin-bottom: 1.4rem;
+
+/* Large decorative quotation mark behind the text. */
+.quote__mark {
+  display: block;
+  font-size: clamp(2.2rem, 5vw, 3.2rem);
+  line-height: 1;
+  color: var(--text);
+  opacity: 0.16;
+  margin-bottom: 1.6rem;
 }
+
 .quote__stars {
   display: flex;
   justify-content: center;
-  gap: 5px;
-  font-size: 0.95rem;
-  color: var(--accent);
-  margin-bottom: 1.6rem;
+  gap: 7px;
+  font-size: 0.82rem;
+  color: var(--text);
+  margin-bottom: 1.8rem;
 }
+
 .quote__text {
   margin: 0;
-  font-family: var(--font-head);
-  font-size: clamp(1.25rem, 2.6vw, 1.9rem);
+  font-family: var(--font-serif);
+  font-size: clamp(1.5rem, 3.2vw, 2.35rem);
   font-weight: 500;
-  line-height: 1.45;
-  letter-spacing: -0.01em;
+  line-height: 1.4;
+  letter-spacing: 0;
   color: var(--text);
+  text-wrap: balance;
   animation: quoteIn 0.6s var(--ease);
 }
 
+/* ---- Author ------------------------------------------------------------- */
 .quote__author {
   display: inline-flex;
   align-items: center;
   gap: 1rem;
-  margin-top: 2.2rem;
+  margin-top: clamp(2rem, 3.5vw, 2.8rem);
+  animation: quoteIn 0.6s var(--ease) 0.06s backwards;
 }
+
+/* The ONLY allowed circle — a round avatar. */
 .quote__avatar {
-  width: 54px;
-  height: 54px;
+  width: 58px;
+  height: 58px;
+  flex-shrink: 0;
   border-radius: 50%;
   object-fit: cover;
-  border: 2px solid var(--accent);
+  border: 1px solid var(--border);
 }
-.quote__author > span {
+
+.quote__meta {
   text-align: left;
 }
+
 .quote__name {
   display: block;
   font-family: var(--font-head);
-  font-weight: 700;
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
   color: var(--text);
 }
+
 .quote__role {
   display: block;
-  font-size: 0.85rem;
+  margin-top: 0.35rem;
+  font-size: 0.82rem;
+  font-weight: 300;
+  letter-spacing: 0.02em;
   color: var(--text-muted);
 }
 
+/* ---- Navigation --------------------------------------------------------- */
 .testimonials__nav {
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 1.5rem;
-  margin-top: 2.6rem;
+  gap: 1.6rem;
+  margin-top: clamp(2.2rem, 4vw, 3rem);
 }
-.testimonials__nav > button {
-  width: 46px;
-  height: 46px;
+
+/* Square icon buttons (per design system). */
+.nav-btn {
+  width: 48px;
+  height: 48px;
   display: flex;
   align-items: center;
   justify-content: center;
-  border: 1px solid var(--border);
-  border-radius: 50%;
+  font-size: 0.85rem;
   color: var(--text);
-  transition: background-color 0.3s var(--ease), color 0.3s var(--ease), border-color 0.3s var(--ease);
+  border: 1px solid var(--border);
+  transition: color 0.4s var(--ease), background-color 0.4s var(--ease),
+    border-color 0.4s var(--ease);
 }
-.testimonials__nav > button:hover {
+.nav-btn:hover {
+  color: var(--accent-contrast);
   background: var(--accent);
   border-color: var(--accent);
-  color: var(--accent-contrast);
 }
+
 .testimonials__dots {
   display: flex;
-  gap: 9px;
+  align-items: center;
+  gap: 10px;
 }
+
+/* Square dots — tiny ticks rather than circles. */
 .dot {
-  width: 9px;
-  height: 9px;
-  border-radius: 50%;
+  width: 22px;
+  height: 2px;
   background: var(--border);
-  transition: background-color 0.3s var(--ease), transform 0.3s var(--ease);
+  transition: background-color 0.4s var(--ease), transform 0.4s var(--ease);
+}
+.dot:hover {
+  background: var(--text-muted);
 }
 .dot.is-active {
-  background: var(--accent);
-  transform: scale(1.3);
+  background: var(--text);
+  transform: scaleY(2);
 }
 
 @keyframes quoteIn {
-  from { opacity: 0; transform: translateY(12px); }
-  to { opacity: 1; transform: none; }
+  from {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@media (max-width: 560px) {
+  .quote__author {
+    flex-direction: column;
+    gap: 0.85rem;
+    text-align: center;
+  }
+  .quote__meta {
+    text-align: center;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .quote__text,
+  .quote__author {
+    animation: none;
+  }
 }

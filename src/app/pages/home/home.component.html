@@ -1,51 +1,17 @@
 <app-hero-slider />
 
-<!-- Manifesto / intro -->
-<section class="section intro">
-  <div class="container intro__grid">
-    <div class="intro__media" appReveal="left">
-      <div class="intro__media-inner clip-reveal" appReveal [revealClip]="true">
-        <img [src]="introImage" alt="Naman Gupta, photographer" loading="lazy" />
-      </div>
-      <span class="intro__badge">
-        <strong>9+</strong>
-        <span>years</span>
-      </span>
-    </div>
-
-    <div class="intro__body" appReveal="right">
-      <p class="eyebrow">The photographer</p>
-      <h2 class="intro__title">I chase honest light and the stories hiding inside ordinary moments.</h2>
-      <p class="intro__text">
-        Based in Mumbai, I work instinctively — no fixed formula, just an eye for mood and a love
-        for detail. From intimate portraits to brand campaigns and sweeping naturescapes, every
-        frame is made to feel considered, cinematic and timeless.
-      </p>
-      <p class="intro__sign">— Naman Gupta</p>
-      <a routerLink="/about" class="btn btn--ghost">
-        My story <i class="fa-solid fa-arrow-right" aria-hidden="true"></i>
-      </a>
-    </div>
-  </div>
-</section>
-
-<app-stats [soft]="true" />
-
+<!-- Collections — the primary way to browse the work -->
 <app-collections-grid
-  eyebrow="Portfolio"
-  title="Selected work"
-  subtitle="Curated collections spanning portraits, naturescapes, travel and motion."
+  eyebrow="Collections"
+  title="Browse by theme"
+  subtitle="Distinct bodies of work — portraits, naturescapes, travel and motion. Step inside any collection to see the full set."
 />
 
 <div class="home__more container">
-  <a routerLink="/gallery" class="btn">
-    Explore the full gallery <i class="fa-solid fa-arrow-right" aria-hidden="true"></i>
+  <a routerLink="/collections" class="btn">
+    View all collections <i class="fa-solid fa-arrow-right" aria-hidden="true"></i>
   </a>
 </div>
-
-<app-services [soft]="true" subtitle="Tailored photography for people, brands and stories that deserve to be seen." />
-
-<app-testimonials />
 
 <app-instagram-feed />
 

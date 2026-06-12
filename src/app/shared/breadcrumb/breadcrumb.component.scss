@@ -2,66 +2,48 @@
   display: block;
 }
 
+/* The masthead itself inherits every pattern from the global `.page-hero`
+   (dark band + `--scrim` over the cover image, serif title, muted sub).
+   We only give it a little more presence and lay out the inner block. */
 .page-hero {
-  position: relative;
   display: flex;
   align-items: flex-end;
-  min-height: clamp(360px, 56vh, 560px);
-  padding-top: calc(var(--header-h) + 40px);
-  padding-bottom: clamp(48px, 8vh, 90px);
-  background-size: cover;
-  background-position: center;
-  color: var(--on-dark);
-  overflow: hidden;
-}
-
-.page-hero__scrim {
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(180deg, rgba(8, 8, 8, 0.45), rgba(8, 8, 8, 0.7));
+  min-height: clamp(340px, 52vh, 520px);
 }
 
 .page-hero__inner {
   position: relative;
+  z-index: 1;
   width: 100%;
 }
 
-.page-hero__crumbs {
+/* ---- Breadcrumb trail — light text over the dark masthead --------------- */
+.crumbs {
   display: flex;
   align-items: center;
-  gap: 0.6rem;
+  flex-wrap: wrap;
+  gap: 0.7rem;
+  margin-bottom: 1.3rem;
   font-family: var(--font-head);
-  font-size: 0.75rem;
+  font-size: 0.72rem;
   font-weight: 600;
-  letter-spacing: 0.18em;
+  letter-spacing: 0.22em;
   text-transform: uppercase;
+}
+
+.crumbs__link {
   color: rgba(255, 255, 255, 0.7);
-  margin-bottom: 1.2rem;
+  transition: color 0.3s var(--ease);
 }
-.page-hero__crumbs a:hover {
-  color: var(--accent-soft);
-}
-.page-hero__crumbs .is-current {
-  color: var(--accent-soft);
-}
-
-.page-hero__title {
+.crumbs__link:hover,
+.crumbs__link:focus-visible {
   color: #fff;
-  font-size: clamp(2.6rem, 7vw, 5rem);
-  font-weight: 800;
-  letter-spacing: -0.035em;
-  line-height: 1;
-  animation: phUp 0.8s var(--ease);
 }
 
-.page-hero__subtitle {
-  max-width: 560px;
-  margin-top: 1.2rem;
-  font-size: 1.05rem;
-  color: rgba(244, 242, 236, 0.85);
+.crumbs__sep {
+  color: rgba(255, 255, 255, 0.4);
 }
 
-@keyframes phUp {
-  from { opacity: 0; transform: translateY(20px); }
-  to { opacity: 1; transform: none; }
+.crumbs__current {
+  color: var(--on-dark);
 }

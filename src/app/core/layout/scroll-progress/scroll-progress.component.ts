@@ -12,12 +12,19 @@ import { ChangeDetectionStrategy, Component, HostListener, signal } from '@angul
         top: 0;
         left: 0;
         width: 100%;
-        height: 3px;
-        z-index: 1200;
-        background: linear-gradient(90deg, var(--accent), var(--accent-soft));
+        height: 2px;
+        z-index: 1300;
+        background: var(--text);
         transform-origin: 0 50%;
         transform: scaleX(0);
         will-change: transform;
+        transition: background-color 0.5s var(--ease-soft);
+      }
+
+      @media (prefers-reduced-motion: reduce) {
+        .scroll-progress {
+          transition: none;
+        }
       }
     `,
   ],

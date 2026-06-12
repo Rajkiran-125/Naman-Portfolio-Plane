@@ -2,10 +2,11 @@
   display: block;
 }
 
+/* ---- Editorial post grid ------------------------------------------------ */
 .blog__grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: clamp(1.4rem, 3vw, 2.4rem);
+  gap: clamp(2rem, 4vw, 3.4rem);
 }
 .post--wide {
   grid-column: span 2;
@@ -15,77 +16,139 @@
   display: flex;
   flex-direction: column;
 }
+
+/* ---- Square cover image with hover zoom + dark wash --------------------- */
 .post__media {
   position: relative;
   display: block;
-  aspect-ratio: 3 / 2;
+  aspect-ratio: 1 / 1;
   overflow: hidden;
-  border-radius: var(--radius);
   background: var(--surface-2);
   cursor: pointer;
+}
+.post--wide .post__media {
+  aspect-ratio: 16 / 10;
 }
 .post__media img {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  transition: transform 0.9s var(--ease);
+  transition: transform 1s var(--ease);
 }
 .post:hover .post__media img {
-  transform: scale(1.06);
-}
-.post__cat {
-  position: absolute;
-  top: 14px;
-  left: 14px;
-  font-family: var(--font-head);
-  font-size: 0.66rem;
-  font-weight: 600;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  color: var(--accent-contrast);
-  background: var(--accent);
-  padding: 5px 11px;
-  border-radius: 100px;
+  transform: scale(1.05);
 }
 
+/* Dark gradient overlay revealed on hover. */
+.post__media::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, transparent 45%, rgba(8, 7, 6, 0.55));
+  opacity: 0;
+  transition: opacity 0.5s var(--ease);
+}
+.post:hover .post__media::after,
+.post:focus-within .post__media::after {
+  opacity: 1;
+}
+
+/* ---- Small square dark date tag ---------------------------------------- */
+.post__date {
+  position: absolute;
+  z-index: 1;
+  top: 16px;
+  left: 16px;
+  padding: 8px 13px;
+  font-family: var(--font-head);
+  font-size: 0.64rem;
+  font-weight: 600;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: #fff;
+  background: rgba(10, 9, 7, 0.62);
+  backdrop-filter: blur(6px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+/* ---- Body --------------------------------------------------------------- */
 .post__body {
-  padding-top: 1.2rem;
+  padding-top: 1.4rem;
 }
-.post__meta {
-  display: flex;
-  gap: 1.2rem;
-  font-size: 0.78rem;
+
+/* Category — uppercase tracked Poppins label. */
+.post__cat {
+  display: inline-block;
+  font-family: var(--font-head);
+  font-size: 0.68rem;
+  font-weight: 600;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
   color: var(--text-muted);
-  margin-bottom: 0.7rem;
+  margin-bottom: 0.85rem;
 }
-.post__meta i {
-  color: var(--accent);
-  margin-right: 0.3em;
-}
+
+/* Title — serif editorial display. */
 .post__title {
-  font-size: 1.25rem;
-  line-height: 1.3;
-  margin-bottom: 0.8rem;
+  font-family: var(--font-serif);
+  font-weight: 500;
+  letter-spacing: 0;
+  font-size: clamp(1.4rem, 2.2vw, 1.75rem);
+  line-height: 1.18;
+  margin-bottom: 0.9rem;
 }
 .post--wide .post__title {
-  font-size: clamp(1.4rem, 2.4vw, 1.9rem);
+  font-size: clamp(1.7rem, 3vw, 2.4rem);
 }
 .post__title a {
   cursor: pointer;
+  transition: color 0.3s var(--ease);
 }
 .post:hover .post__title a {
-  color: var(--accent);
+  color: var(--text-muted);
 }
-.post__read {
+
+/* Excerpt / meta line. */
+.post__meta {
+  display: flex;
+  gap: 1.4rem;
   font-size: 0.82rem;
+  font-weight: 300;
+  color: var(--text-muted);
+  margin-bottom: 1.3rem;
+}
+.post__meta i {
+  margin-right: 0.45em;
+  font-size: 0.85em;
+  color: var(--text-muted);
+}
+
+.post__read {
+  font-size: 0.78rem;
   cursor: pointer;
 }
 
+/* ---- Responsive --------------------------------------------------------- */
 @media (max-width: 900px) {
-  .blog__grid { grid-template-columns: repeat(2, 1fr); }
-  .post--wide { grid-column: span 2; }
+  .blog__grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: clamp(1.6rem, 4vw, 2.6rem);
+  }
+  .post--wide {
+    grid-column: span 2;
+  }
+  .post--wide .post__media {
+    aspect-ratio: 16 / 9;
+  }
 }
 @media (max-width: 560px) {
-  .blog__grid { grid-template-columns: 1fr; }
-  .post--wide { grid-column: span 1; }
+  .blog__grid {
+    grid-template-columns: 1fr;
+  }
+  .post--wide {
+    grid-column: span 1;
+  }
+  .post--wide .post__media {
+    aspect-ratio: 1 / 1;
+  }
 }

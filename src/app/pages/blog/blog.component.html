@@ -9,18 +9,18 @@
   <div class="container">
     <div class="blog__grid">
       @for (post of posts; track $index; let i = $index) {
-        <article class="post" [class.post--wide]="post.wide" appReveal [revealDelay]="(i % 3) * 80">
+        <article class="post" [class.post--wide]="post.wide" appReveal="up" [revealDelay]="(i % 3) * 80">
           <a class="post__media">
             <img [src]="post.image" [alt]="post.title" loading="lazy" decoding="async" />
-            <span class="post__cat">{{ post.category }}</span>
+            <span class="post__date">{{ post.date }}</span>
           </a>
           <div class="post__body">
+            <span class="post__cat">{{ post.category }}</span>
+            <h2 class="post__title"><a>{{ post.title }}</a></h2>
             <div class="post__meta">
-              <span><i class="fa-regular fa-calendar"></i> {{ post.date }}</span>
               <span><i class="fa-regular fa-comment"></i> {{ post.comments }}</span>
             </div>
-            <h2 class="post__title"><a>{{ post.title }}</a></h2>
-            <a class="post__read link-underline">Read more</a>
+            <a class="post__read link-underline">Read more <i class="fa-solid fa-arrow-right"></i></a>
           </div>
         </article>
       }

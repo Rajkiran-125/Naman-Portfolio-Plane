@@ -1,11 +1,14 @@
 /* ============================================================================
    NAMAN GUPTA — PHOTOGRAPHY PORTFOLIO
-   Global design system
+   Global design system  ·  "Monochrome Editorial"
    ----------------------------------------------------------------------------
-   A single source of truth for the premium, editorial look & feel. Everything
-   is driven by CSS custom properties so light/dark mode is a token flip
-   (ThemeService toggles `.dark` on <html>). No vendor frameworks — the legacy
-   Bootstrap/Themify template has been retired in favour of this system.
+   A minimal, high-end black-&-white photography aesthetic inspired by the
+   classic editorial photographer layout: square edges, generous whitespace,
+   uppercase Poppins UI, and a Cormorant Garamond serif for the big display
+   moments. Everything is driven by CSS custom properties, so light/dark mode is
+   a single token flip (ThemeService toggles `.dark` on <html>). No vendor
+   frameworks. Class & token names are kept stable so every component re-skins
+   purely through these variables.
    ========================================================================== */
 
 /* ----------------------------------------------------------------------------
@@ -13,63 +16,68 @@
    -------------------------------------------------------------------------- */
 :root {
   /* Type */
-  --font-head: 'Manrope', system-ui, -apple-system, 'Segoe UI', sans-serif;
-  --font-body: 'Plus Jakarta Sans', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --font-head: 'Poppins', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --font-body: 'Poppins', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --font-serif: 'Cormorant Garamond', 'Times New Roman', Georgia, serif;
 
-  /* Colour — Light mode */
+  /* Colour — Light mode (paper white + ink black, monochrome accent) */
   --bg: #ffffff;
-  --bg-soft: #f6f5f1;
+  --bg-soft: #f4f3f0;
   --surface: #ffffff;
-  --surface-2: #f1efea;
-  --text: #0c0c0c;
-  --text-soft: #38352f;
-  --text-muted: #79746b;
-  --border: rgba(12, 12, 12, 0.1);
-  --border-soft: rgba(12, 12, 12, 0.06);
-  --accent: #b08947;        /* champagne gold */
-  --accent-soft: #c7a468;
+  --surface-2: #eeece7;
+  --text: #161616;
+  --text-soft: #3a3733;
+  --text-muted: #8a857d;
+  --border: rgba(20, 18, 16, 0.13);
+  --border-soft: rgba(20, 18, 16, 0.07);
+  --accent: #161616;            /* in monochrome, ink IS the accent */
+  --accent-soft: #4a4641;
   --accent-contrast: #ffffff;
-  --on-dark: #f4f2ec;       /* text colour over imagery, both themes */
-  --overlay: rgba(10, 9, 7, 0.42);
+  --on-dark: #f5f4f0;           /* text/marks over imagery, both themes */
+  --overlay: rgba(8, 7, 6, 0.46);
+  --scrim: linear-gradient(180deg, rgba(0,0,0,0.34) 0%, rgba(0,0,0,0.12) 28%, rgba(0,0,0,0.22) 62%, rgba(0,0,0,0.66) 100%);
 
-  --shadow-sm: 0 2px 12px rgba(20, 18, 14, 0.06);
-  --shadow-md: 0 18px 50px rgba(20, 18, 14, 0.12);
-  --shadow-lg: 0 40px 90px rgba(20, 18, 14, 0.18);
+  --shadow-sm: 0 2px 14px rgba(18, 16, 12, 0.07);
+  --shadow-md: 0 22px 60px rgba(18, 16, 12, 0.13);
+  --shadow-lg: 0 44px 100px rgba(18, 16, 12, 0.2);
 
-  /* Geometry */
-  --radius-sm: 4px;
-  --radius: 10px;
-  --radius-lg: 20px;
-  --maxw: 1320px;
+  /* Geometry — hard edges (square) like the reference */
+  --radius-sm: 0px;
+  --radius: 0px;
+  --radius-lg: 0px;
+  --maxw: 1340px;
+  --maxw-wide: 1760px;
   --gutter: clamp(20px, 5vw, 80px);
-  --section-y: clamp(72px, 11vh, 160px);
+  --section-y: clamp(80px, 11vh, 140px);
 
   /* Motion */
   --ease: cubic-bezier(0.22, 1, 0.36, 1);
   --ease-soft: cubic-bezier(0.4, 0, 0.2, 1);
   --dur: 0.6s;
 
-  --header-h: 88px;
+  --header-h: 72px;
 }
 
 html.dark {
-  --bg: #0b0b0b;
-  --bg-soft: #101010;
-  --surface: #141312;
+  --bg: #0c0c0c;
+  --bg-soft: #131312;
+  --surface: #151514;
   --surface-2: #1c1b19;
-  --text: #f3f1ec;
-  --text-soft: #d3d0c9;
+  --text: #f4f3ef;
+  --text-soft: #d4d1cb;
   --text-muted: #8f8b82;
-  --border: rgba(255, 255, 255, 0.12);
+  --border: rgba(255, 255, 255, 0.14);
   --border-soft: rgba(255, 255, 255, 0.06);
-  --accent: #d6b375;
-  --accent-soft: #e3c694;
-  --accent-contrast: #0b0b0b;
-  --overlay: rgba(0, 0, 0, 0.55);
+  --accent: #f4f3ef;            /* in dark, paper IS the accent */
+  --accent-soft: #cdcac3;
+  --accent-contrast: #0c0c0c;
+  --on-dark: #f5f4f0;
+  --overlay: rgba(0, 0, 0, 0.56);
+  --scrim: linear-gradient(180deg, rgba(0,0,0,0.46) 0%, rgba(0,0,0,0.2) 30%, rgba(0,0,0,0.3) 62%, rgba(0,0,0,0.72) 100%);
 
-  --shadow-sm: 0 2px 12px rgba(0, 0, 0, 0.5);
-  --shadow-md: 0 18px 50px rgba(0, 0, 0, 0.55);
-  --shadow-lg: 0 40px 90px rgba(0, 0, 0, 0.65);
+  --shadow-sm: 0 2px 14px rgba(0, 0, 0, 0.5);
+  --shadow-md: 0 22px 60px rgba(0, 0, 0, 0.6);
+  --shadow-lg: 0 44px 100px rgba(0, 0, 0, 0.7);
 
   color-scheme: dark;
 }
@@ -95,7 +103,7 @@ html {
 body {
   font-family: var(--font-body);
   font-size: 16px;
-  line-height: 1.7;
+  line-height: 1.8;
   font-weight: 400;
   color: var(--text-soft);
   background-color: var(--bg);
@@ -109,9 +117,9 @@ body {
 h1, h2, h3, h4, h5, h6 {
   font-family: var(--font-head);
   color: var(--text);
-  font-weight: 700;
-  line-height: 1.08;
-  letter-spacing: -0.02em;
+  font-weight: 500;
+  line-height: 1.12;
+  letter-spacing: -0.005em;
   text-wrap: balance;
 }
 
@@ -156,18 +164,17 @@ ul {
 :focus-visible {
   outline: 2px solid var(--accent);
   outline-offset: 3px;
-  border-radius: 2px;
 }
 
 ::selection {
-  background: var(--accent);
-  color: var(--accent-contrast);
+  background: var(--text);
+  color: var(--bg);
 }
 
-/* Custom scrollbar (desktop). */
+/* Custom scrollbar (desktop, fine pointers). */
 @media (pointer: fine) {
   ::-webkit-scrollbar {
-    width: 11px;
+    width: 10px;
   }
   ::-webkit-scrollbar-track {
     background: var(--bg);
@@ -175,10 +182,9 @@ ul {
   ::-webkit-scrollbar-thumb {
     background: var(--surface-2);
     border: 3px solid var(--bg);
-    border-radius: 20px;
   }
   ::-webkit-scrollbar-thumb:hover {
-    background: var(--accent);
+    background: var(--text-muted);
   }
 }
 
@@ -186,49 +192,57 @@ ul {
    3. Typography scale (fluid)
    -------------------------------------------------------------------------- */
 .display {
-  font-size: clamp(2.7rem, 8vw, 6.2rem);
-  font-weight: 800;
-  letter-spacing: -0.035em;
+  font-family: var(--font-serif);
+  font-size: clamp(3rem, 9vw, 7rem);
+  font-weight: 500;
+  letter-spacing: -0.01em;
   line-height: 0.98;
 }
 
+.serif {
+  font-family: var(--font-serif);
+  font-weight: 500;
+  letter-spacing: 0;
+}
+
 .h1 { font-size: clamp(2.2rem, 5vw, 4rem); }
-.h2 { font-size: clamp(1.9rem, 4vw, 3.1rem); }
-.h3 { font-size: clamp(1.4rem, 2.5vw, 2rem); }
+.h2 { font-size: clamp(1.9rem, 4vw, 3rem); }
+.h3 { font-size: clamp(1.35rem, 2.5vw, 1.9rem); }
 
 .lead {
-  font-size: clamp(1.05rem, 1.5vw, 1.3rem);
-  line-height: 1.6;
+  font-size: clamp(1.02rem, 1.4vw, 1.22rem);
+  line-height: 1.8;
   color: var(--text-muted);
+  font-weight: 300;
 }
 
 /* Small uppercase label used above section titles. */
 .eyebrow {
   display: inline-flex;
   align-items: center;
-  gap: 0.7em;
+  gap: 0.85em;
   font-family: var(--font-head);
-  font-size: 0.74rem;
+  font-size: 0.72rem;
   font-weight: 600;
-  letter-spacing: 0.32em;
+  letter-spacing: 0.34em;
   text-transform: uppercase;
-  color: var(--accent);
+  color: var(--text-muted);
 }
 
 .eyebrow::before {
   content: '';
-  width: 34px;
+  width: 38px;
   height: 1px;
   background: currentColor;
-  opacity: 0.7;
+  opacity: 0.55;
 }
 
 .eyebrow--center::after {
   content: '';
-  width: 34px;
+  width: 38px;
   height: 1px;
   background: currentColor;
-  opacity: 0.7;
+  opacity: 0.55;
 }
 
 .text-muted { color: var(--text-muted); }
@@ -244,7 +258,7 @@ ul {
 }
 
 .container--wide {
-  max-width: 1680px;
+  max-width: var(--maxw-wide);
 }
 
 .section {
@@ -256,8 +270,8 @@ ul {
 }
 
 .section-head {
-  max-width: 640px;
-  margin-bottom: clamp(2.5rem, 5vw, 4rem);
+  max-width: 660px;
+  margin-bottom: clamp(2.5rem, 5vw, 4.5rem);
 }
 
 .section-head--center {
@@ -265,8 +279,12 @@ ul {
   text-align: center;
 }
 
+.section-head--center .eyebrow {
+  justify-content: center;
+}
+
 .section-head .eyebrow {
-  margin-bottom: 1.1rem;
+  margin-bottom: 1.2rem;
 }
 
 .section-head h2 {
@@ -274,7 +292,7 @@ ul {
 }
 
 .section-head p {
-  margin-top: 1.1rem;
+  margin-top: 1.2rem;
 }
 
 main {
@@ -283,30 +301,32 @@ main {
 }
 
 /* ----------------------------------------------------------------------------
-   5. Buttons
+   5. Buttons — square, uppercase, monochrome
    -------------------------------------------------------------------------- */
 .btn {
   --btn-bg: var(--text);
   --btn-fg: var(--bg);
+  --btn-line: var(--text);
   position: relative;
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  gap: 0.65em;
-  padding: 1.05em 2.1em;
+  gap: 0.7em;
+  min-width: 200px;
+  padding: 1.25em 2.5em;
   font-family: var(--font-head);
-  font-size: 0.84rem;
+  font-size: 0.78rem;
   font-weight: 600;
-  letter-spacing: 0.12em;
+  letter-spacing: 0.2em;
   text-transform: uppercase;
   color: var(--btn-fg);
   background: var(--btn-bg);
-  border: 1px solid var(--btn-bg);
-  border-radius: 100px;
+  border: 1px solid var(--btn-line);
+  border-radius: 0;
   overflow: hidden;
   isolation: isolate;
-  transition: color 0.4s var(--ease), border-color 0.4s var(--ease),
-    transform 0.4s var(--ease), background-color 0.4s var(--ease);
+  transition: color 0.45s var(--ease), border-color 0.45s var(--ease),
+    background-color 0.45s var(--ease);
 }
 
 .btn > * {
@@ -314,22 +334,20 @@ main {
   z-index: 1;
 }
 
-/* Sliding fill on hover. */
+/* Sliding wipe on hover — solid empties to its inverse. */
 .btn::before {
   content: '';
   position: absolute;
   inset: 0;
   z-index: 0;
-  background: var(--accent);
+  background: var(--btn-fg);
   transform: scaleX(0);
   transform-origin: left;
   transition: transform 0.5s var(--ease);
 }
 
 .btn:hover {
-  color: var(--accent-contrast);
-  border-color: var(--accent);
-  transform: translateY(-2px);
+  color: var(--btn-bg);
 }
 
 .btn:hover::before {
@@ -339,59 +357,133 @@ main {
 .btn .fa-solid,
 .btn .fa-regular,
 .btn i {
-  font-size: 0.9em;
+  font-size: 0.95em;
   transition: transform 0.4s var(--ease);
 }
 
 .btn:hover i {
-  transform: translateX(3px);
+  transform: translateX(4px);
 }
 
-/* Outline / ghost */
+/* Outline / ghost — transparent, fills with ink on hover. */
 .btn--ghost {
   --btn-bg: transparent;
   --btn-fg: var(--text);
-  border-color: var(--border);
+  --btn-line: var(--text);
 }
-
+.btn--ghost::before {
+  background: var(--text);
+}
 .btn--ghost:hover {
-  color: var(--accent-contrast);
+  color: var(--bg);
 }
 
-/* Light variant for use over dark imagery (hero). */
+/* Light solid — for use over dark imagery (hero). Inverts to an outline. */
 .btn--light {
   --btn-bg: var(--on-dark);
-  --btn-fg: #0c0c0c;
+  --btn-fg: #141414;
+  --btn-line: var(--on-dark);
+}
+.btn--light::before { display: none; }
+.btn--light:hover {
+  color: var(--on-dark);
+  background: transparent;
   border-color: var(--on-dark);
 }
 
+/* Outline light — over dark imagery. */
 .btn--outline-light {
   --btn-bg: transparent;
   --btn-fg: var(--on-dark);
-  border-color: rgba(255, 255, 255, 0.5);
+  --btn-line: rgba(255, 255, 255, 0.5);
+}
+.btn--outline-light::before {
+  background: var(--on-dark);
+}
+.btn--outline-light:hover {
+  color: #141414;
+  border-color: var(--on-dark);
 }
 
-.btn--outline-light:hover {
-  color: var(--accent-contrast);
+/* Compact button modifier. */
+.btn--sm {
+  min-width: 0;
+  padding: 0.95em 1.8em;
+  font-size: 0.72rem;
+  letter-spacing: 0.16em;
 }
 
 /* Text link with animated underline. */
 .link-underline {
   position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5em;
   font-family: var(--font-head);
   font-weight: 600;
-  letter-spacing: 0.04em;
-  background-image: linear-gradient(var(--accent), var(--accent));
-  background-size: 0% 1.5px;
+  font-size: 0.82rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--text);
+  background-image: linear-gradient(currentColor, currentColor);
+  background-size: 100% 1.5px;
   background-position: 0 100%;
   background-repeat: no-repeat;
-  transition: background-size 0.45s var(--ease), color 0.3s var(--ease);
-  padding-bottom: 2px;
+  transition: color 0.3s var(--ease), opacity 0.3s var(--ease);
+  padding-bottom: 6px;
+}
+
+.link-underline i {
+  transition: transform 0.4s var(--ease);
 }
 
 .link-underline:hover {
-  color: var(--accent);
-  background-size: 100% 1.5px;
+  color: var(--text-muted);
+}
+
+.link-underline:hover i {
+  transform: translateX(4px);
+}
+
+/* ----------------------------------------------------------------------------
+   5b. Page masthead — dark banner every inner page opens with, so the fixed
+       transparent header stays legible and pages share one editorial rhythm.
+       Optional cover image: `<section class="page-hero" style="--hero-bg:url(…)">`
+   -------------------------------------------------------------------------- */
+.page-hero {
+  position: relative;
+  isolation: isolate;
+  background-color: #100f0e;
+  background-image: var(--scrim), var(--hero-bg, none);
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  color: var(--on-dark);
+  padding-top: calc(var(--header-h) + clamp(46px, 9vh, 96px));
+  padding-bottom: clamp(46px, 8vh, 92px);
+  overflow: hidden;
+}
+
+.page-hero .eyebrow {
+  color: rgba(245, 244, 240, 0.72);
+  margin-bottom: 1.3rem;
+}
+
+.page-hero__title {
+  font-family: var(--font-serif);
+  font-weight: 500;
+  font-size: clamp(2.4rem, 6.5vw, 4.8rem);
+  line-height: 1.02;
+  color: var(--on-dark);
+}
+
+.page-hero__sub {
+  margin-top: 1.3rem;
+  max-width: 60ch;
+  font-size: clamp(1rem, 1.4vw, 1.18rem);
+  font-weight: 300;
+  line-height: 1.8;
+  color: rgba(245, 244, 240, 0.74);
 }
 
 /* ----------------------------------------------------------------------------
@@ -399,15 +491,15 @@ main {
    -------------------------------------------------------------------------- */
 [data-reveal] {
   opacity: 0;
-  transform: translateY(34px);
-  transition: opacity 0.9s var(--ease), transform 0.9s var(--ease);
+  transform: translateY(36px);
+  transition: opacity 1s var(--ease), transform 1s var(--ease);
   will-change: opacity, transform;
 }
 
 [data-reveal='fade'] { transform: none; }
-[data-reveal='left'] { transform: translateX(-44px); }
-[data-reveal='right'] { transform: translateX(44px); }
-[data-reveal='zoom'] { transform: scale(0.92); }
+[data-reveal='left'] { transform: translateX(-46px); }
+[data-reveal='right'] { transform: translateX(46px); }
+[data-reveal='zoom'] { transform: scale(0.94); }
 
 [data-reveal].is-visible {
   opacity: 1;
@@ -417,7 +509,7 @@ main {
 /* Image clip-reveal wrapper. */
 .clip-reveal {
   clip-path: inset(0 100% 0 0);
-  transition: clip-path 1.1s var(--ease);
+  transition: clip-path 1.15s var(--ease);
 }
 
 .clip-reveal.is-visible {
@@ -449,8 +541,18 @@ main {
 
 /* Ken Burns slow zoom for hero/cover imagery. */
 @keyframes kenburns {
-  from { transform: scale(1.04); }
-  to { transform: scale(1.16); }
+  from { transform: scale(1.05); }
+  to { transform: scale(1.18); }
+}
+
+/* Vertical marquee used by the home hero columns. */
+@keyframes marquee-up {
+  from { transform: translateY(0); }
+  to { transform: translateY(-50%); }
+}
+@keyframes marquee-down {
+  from { transform: translateY(-50%); }
+  to { transform: translateY(0); }
 }
 
 @media (prefers-reduced-motion: reduce) {

@@ -1,14 +1,25 @@
-import {
-  ChangeDetectionStrategy,
-  Component,
-  OnDestroy,
-  OnInit,
-  signal,
-} from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { RouterLink } from '@angular/router';
-import { HERO_SLIDES } from '../../data/content';
+import { PORTFOLIO_ITEMS } from '../../data/portfolio';
+import { SITE, SOCIAL_LINKS } from '../../data/site';
 
-/** Cinematic fullscreen hero: crossfading Ken Burns slides + dual CTAs. */
+interface HeroColumn {
+  /** Images for this column, already duplicated for a seamless marquee loop. */
+  frames: string[];
+  /** Animation duration in seconds (varied per column for a parallax feel). */
+  duration: number;
+  /** Scroll direction. */
+  down: boolean;
+}
+
+const COLUMN_COUNT = 4;
+const PER_COLUMN = 6;
+
+/**
+ * Cinematic hero: columns of portfolio frames scroll vertically behind a scrim,
+ * with an editorial headline, dual CTAs and a pinned social rail — a modern,
+ * premium take on the classic photographer auto-scroll hero.
+ */
 @Component({
   selector: 'app-hero-slider',
   standalone: true,
@@ -17,39 +28,31 @@ import { HERO_SLIDES } from '../../data/content';
   styleUrl: './hero-slider.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class HeroSliderComponent implements OnInit, OnDestroy {
-  readonly slides = HERO_SLIDES;
-  readonly active = signal(0);
+export class HeroSliderComponent {
+  readonly role = SITE.role;
+  readonly location = SITE.address;
+  readonly socialLinks = SOCIAL_LINKS;
 
-  private timer?: ReturnType<typeof setInterval>;
-  private readonly intervalMs = 7000;
+  readonly columns: HeroColumn[] = this.buildColumns();
 
-  ngOnInit(): void {
-    this.start();
-  }
+  private buildColumns(): HeroColumn[] {
+    const sources = PORTFOLIO_ITEMS.map((item) => item.src);
+    const durations = [38, 52, 44, 60];
+    const columns: HeroColumn[] = [];
 
-  ngOnDestroy(): void {
-    this.stop();
-  }
-
-  goTo(i: number): void {
-    this.active.set(i);
-    this.restart();
-  }
-
-  private start(): void {
-    this.timer = setInterval(() => {
-      this.active.update((i) => (i + 1) % this.slides.length);
-    }, this.intervalMs);
-  }
-
-  private stop(): void {
-    if (this.timer) clearInterval(this.timer);
-    this.timer = undefined;
-  }
-
-  private restart(): void {
-    this.stop();
-    this.start();
+    for (let c = 0; c < COLUMN_COUNT; c++) {
+      const frames: string[] = [];
+      for (let i = 0; i < PER_COLUMN; i++) {
+        // Round-robin across the source list, wrapping as needed.
+        frames.push(sources[(c + i * COLUMN_COUNT) % sources.length]);
+      }
+      columns.push({
+        // Duplicate so the -50% marquee loops seamlessly.
+        frames: [...frames, ...frames],
+        duration: durations[c % durations.length],
+        down: c % 2 === 1,
+      });
+    }
+    return columns;
   }
 }

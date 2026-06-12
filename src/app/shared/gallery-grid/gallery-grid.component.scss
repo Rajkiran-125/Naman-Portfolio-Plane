@@ -5,43 +5,65 @@
 .gallery {
   padding-block: var(--section-y);
 }
+/* Flush variant: tighter top *and* bottom so it nests inside another section
+   without doubling the vertical rhythm. */
 .gallery--flush {
-  padding-top: clamp(28px, 4vh, 48px);
+  padding-block: clamp(28px, 4vh, 48px);
 }
 
-/* ---- Filters ------------------------------------------------------------ */
+/* ---- Filters (reference portfolio-filter) ------------------------------- */
 .gallery__filters {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  gap: 0.5rem;
-  margin-bottom: clamp(2rem, 5vw, 3.5rem);
+  gap: clamp(0.4rem, 2vw, 2.4rem);
+  margin-bottom: clamp(2.2rem, 5vw, 3.6rem);
 }
 .gallery__filter {
+  position: relative;
   font-family: var(--font-head);
-  font-size: 0.8rem;
-  font-weight: 600;
-  letter-spacing: 0.06em;
-  padding: 0.6em 1.4em;
-  border-radius: 100px;
+  font-size: 0.76rem;
+  font-weight: 500;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  padding: 0.5em 0.2em;
   color: var(--text-muted);
-  border: 1px solid transparent;
-  transition: color 0.3s var(--ease), background-color 0.3s var(--ease),
-    border-color 0.3s var(--ease);
+  transition: color 0.3s var(--ease);
+}
+.gallery__filter::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  height: 1px;
+  background: var(--text);
+  transform: scaleX(0);
+  transform-origin: center;
+  transition: transform 0.4s var(--ease);
 }
 .gallery__filter:hover {
   color: var(--text);
 }
 .gallery__filter.is-active {
-  color: var(--accent-contrast);
-  background: var(--text);
-  border-color: var(--text);
+  color: var(--text);
+}
+.gallery__filter.is-active::after {
+  transform: scaleX(1);
+}
+.gallery__filter:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
 }
 
 /* ---- Masonry (CSS columns) --------------------------------------------- */
 .gallery__masonry {
   column-count: 3;
   column-gap: clamp(0.9rem, 1.6vw, 1.6rem);
+}
+/* Denser, more immersive grid on large displays. */
+@media (min-width: 1600px) {
+  .gallery__masonry { column-count: 4; }
 }
 @media (max-width: 991px) {
   .gallery__masonry { column-count: 2; }
@@ -56,7 +78,6 @@
   width: 100%;
   margin-bottom: clamp(0.9rem, 1.6vw, 1.6rem);
   break-inside: avoid;
-  border-radius: var(--radius);
   overflow: hidden;
   background: var(--surface-2);
   cursor: pointer;
@@ -64,10 +85,19 @@
 .gallery__item img {
   width: 100%;
   height: auto;
-  transition: transform 0.9s var(--ease);
+  transition: transform 1s var(--ease), filter 0.6s var(--ease);
 }
 .gallery__item:hover img {
-  transform: scale(1.06);
+  transform: scale(1.05);
+}
+
+/* Wide tiles span the full width of the masonry. */
+.gallery__item.is-wide {
+  column-span: all;
+}
+.gallery__item.is-wide img {
+  max-height: 70vh;
+  object-fit: cover;
 }
 
 .gallery__overlay {
@@ -77,8 +107,8 @@
   align-items: flex-end;
   justify-content: space-between;
   gap: 1rem;
-  padding: 1.2rem;
-  background: linear-gradient(180deg, transparent 45%, rgba(8, 8, 8, 0.72));
+  padding: 1.3rem;
+  background: linear-gradient(180deg, transparent 40%, rgba(8, 7, 6, 0.78));
   opacity: 0;
   transition: opacity 0.5s var(--ease);
 }
@@ -88,7 +118,7 @@
 }
 .gallery__cap {
   text-align: left;
-  transform: translateY(8px);
+  transform: translateY(10px);
   transition: transform 0.5s var(--ease);
 }
 .gallery__item:hover .gallery__cap {
@@ -97,28 +127,32 @@
 .gallery__cap-title {
   display: block;
   font-family: var(--font-head);
-  font-size: 1.05rem;
-  font-weight: 700;
+  font-size: 1rem;
+  font-weight: 600;
   color: #fff;
 }
 .gallery__cap-meta {
   display: block;
-  margin-top: 2px;
-  font-size: 0.72rem;
-  font-weight: 600;
-  letter-spacing: 0.18em;
+  margin-top: 4px;
+  font-size: 0.66rem;
+  font-weight: 500;
+  letter-spacing: 0.22em;
   text-transform: uppercase;
-  color: var(--accent-soft);
+  color: rgba(255, 255, 255, 0.7);
 }
 .gallery__zoom {
   flex: 0 0 auto;
-  width: 42px;
-  height: 42px;
+  width: 44px;
+  height: 44px;
   display: flex;
   align-items: center;
   justify-content: center;
   font-size: 14px;
-  color: #fff;
-  border: 1px solid rgba(255, 255, 255, 0.5);
-  border-radius: 50%;
+  color: #141414;
+  background: rgba(255, 255, 255, 0.92);
+  transform: translateY(10px);
+  transition: transform 0.5s var(--ease);
+}
+.gallery__item:hover .gallery__zoom {
+  transform: none;
 }

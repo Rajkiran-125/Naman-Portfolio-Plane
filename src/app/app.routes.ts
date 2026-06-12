@@ -12,6 +12,12 @@ export const routes: Routes = [
     title: 'About | Naman Gupta',
   },
   {
+    path: 'collections',
+    loadComponent: () =>
+      import('./pages/collections/collections.component').then((m) => m.CollectionsComponent),
+    title: 'Collections | Naman Gupta',
+  },
+  {
     path: 'gallery',
     loadComponent: () => import('./pages/gallery/gallery.component').then((m) => m.GalleryComponent),
     title: 'Gallery | Naman Gupta',
