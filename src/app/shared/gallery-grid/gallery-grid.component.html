@@ -1,43 +1,46 @@
-<div class="alime-portfolio-area section-padding-80 clearfix">
-  <div class="container-fluid">
-    @if (showFilters) {
-      <div class="row">
-        <div class="col-12">
-          <div class="alime-projects-menu">
-            <div class="portfolio-menu text-center">
-              @for (f of filters; track f.label) {
-                <button
-                  type="button"
-                  class="btn"
-                  [class.active]="activeFilter() === f.value"
-                  (click)="setFilter(f.value)"
-                >
-                  {{ f.label }}
-                </button>
-              }
-            </div>
-          </div>
-        </div>
+<div class="gallery" [class.gallery--flush]="flushTop()">
+  <div class="container container--wide">
+    @if (showFilters()) {
+      <div class="gallery__filters" role="tablist" aria-label="Filter gallery">
+        @for (f of filters; track f.label) {
+          <button
+            type="button"
+            class="gallery__filter"
+            [class.is-active]="activeFilter() === f.value"
+            (click)="setFilter(f.value)"
+          >
+            {{ f.label }}
+          </button>
+        }
       </div>
     }
 
-    <div class="alime-masonry">
+    <div class="gallery__masonry">
       @for (item of filtered(); track item.src; let i = $index) {
-        <div class="alime-masonry-item">
-          <div class="single-portfolio-content">
-            <img [src]="item.src" alt="Portfolio photograph" loading="lazy" />
-            <div class="hover-content">
-              <a class="portfolio-img" (click)="open(i)" role="button" tabindex="0">+</a>
-            </div>
-          </div>
-        </div>
+        <button
+          type="button"
+          class="gallery__item"
+          [class.is-wide]="item.wide"
+          (click)="open(i)"
+          appReveal="zoom"
+          aria-label="Open photograph"
+        >
+          <img [src]="item.src" [alt]="title(item)" loading="lazy" decoding="async" />
+          <span class="gallery__overlay">
+            <span class="gallery__cap">
+              <span class="gallery__cap-title">{{ title(item) }}</span>
+              <span class="gallery__cap-meta">{{ category(item) }}</span>
+            </span>
+            <span class="gallery__zoom"><i class="fa-solid fa-up-right-and-down-left-from-center"></i></span>
+          </span>
+        </button>
       }
     </div>
   </div>
 </div>
 
 <app-lightbox
-  [images]="filteredSrcs()"
+  [images]="lightboxImages()"
   [index]="lightboxIndex()"
   (indexChange)="lightboxIndex.set($event)"
   (closed)="lightboxIndex.set(null)"

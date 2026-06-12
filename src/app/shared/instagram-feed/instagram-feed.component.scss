@@ -2,64 +2,77 @@
   display: block;
 }
 
-.ig-feed {
+.ig {
+  padding-block: var(--section-y);
   overflow: hidden;
+}
+
+.ig__head {
+  text-align: center;
+  margin-bottom: clamp(2rem, 5vw, 3.5rem);
+}
+.ig__head .eyebrow {
+  margin-bottom: 1rem;
+}
+.ig__head h2 a:hover {
+  color: var(--accent);
+}
+
+.ig__feed {
   width: 100%;
+  -webkit-mask-image: linear-gradient(90deg, transparent, #000 6%, #000 94%, transparent);
+  mask-image: linear-gradient(90deg, transparent, #000 6%, #000 94%, transparent);
 }
 
-.ig-track {
+.ig__track {
   display: flex;
-  flex-wrap: nowrap;
-  width: 200%; // two identical copies of the item list
-  animation: ig-scroll 40s linear infinite;
+  gap: 14px;
+  width: max-content;
+  animation: igMarquee 48s linear infinite;
 }
-
-.ig-feed:hover .ig-track {
+.ig__feed:hover .ig__track {
   animation-play-state: paused;
 }
 
-.ig-item {
-  // 12 items in the track (6 unique × 2) → 6 visible across at full width.
-  flex: 0 0 calc(100% / 12);
-  max-width: calc(100% / 12);
+.ig__item {
+  position: relative;
+  flex: 0 0 auto;
+  width: clamp(200px, 22vw, 300px);
+  aspect-ratio: 1;
+  border-radius: var(--radius);
+  overflow: hidden;
+  background: var(--surface-2);
+}
+.ig__item img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.8s var(--ease);
+}
+.ig__item:hover img {
+  transform: scale(1.08);
+}
+.ig__overlay {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.8rem;
+  color: #fff;
+  background: rgba(10, 9, 7, 0.45);
+  opacity: 0;
+  transition: opacity 0.4s var(--ease);
+}
+.ig__item:hover .ig__overlay {
+  opacity: 1;
 }
 
-@media (max-width: 1199px) {
-  .ig-item {
-    flex-basis: calc(100% / 10);
-    max-width: calc(100% / 10);
-  } // 5 across
-}
-@media (max-width: 991px) {
-  .ig-item {
-    flex-basis: calc(100% / 8);
-    max-width: calc(100% / 8);
-  } // 4 across
-}
-@media (max-width: 767px) {
-  .ig-item {
-    flex-basis: calc(100% / 6);
-    max-width: calc(100% / 6);
-  } // 3 across
-}
-@media (max-width: 575px) {
-  .ig-item {
-    flex-basis: calc(100% / 4);
-    max-width: calc(100% / 4);
-  } // 2 across
-}
-
-@keyframes ig-scroll {
-  from {
-    transform: translateX(0);
-  }
-  to {
-    transform: translateX(-50%);
-  }
+@keyframes igMarquee {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .ig-track {
-    animation: none;
-  }
+  .ig__track { animation: none; }
 }

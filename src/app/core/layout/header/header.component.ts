@@ -1,5 +1,15 @@
-import { ChangeDetectionStrategy, Component, HostListener, inject, signal } from '@angular/core';
-import { RouterLink, RouterLinkActive } from '@angular/router';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  DestroyRef,
+  HostListener,
+  OnInit,
+  inject,
+  signal,
+} from '@angular/core';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { NavigationEnd, Router, RouterLink, RouterLinkActive } from '@angular/router';
+import { filter } from 'rxjs';
 import { NAV_ITEMS, SITE, SOCIAL_LINKS } from '../../../data/site';
 import { ThemeService } from '../../theme/theme.service';
 
@@ -11,53 +21,60 @@ import { ThemeService } from '../../theme/theme.service';
   styleUrl: './header.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class HeaderComponent {
+export class HeaderComponent implements OnInit {
   private readonly themeService = inject(ThemeService);
+  private readonly router = inject(Router);
+  private readonly destroyRef = inject(DestroyRef);
 
   readonly navItems = NAV_ITEMS;
   readonly socialLinks = SOCIAL_LINKS;
-  readonly logo = SITE.brandLogo;
+  readonly brand = SITE.brandName;
+  readonly role = SITE.role;
   readonly theme = this.themeService.theme;
 
-  readonly sticky = signal(false);
+  readonly scrolled = signal(false);
   readonly menuOpen = signal(false);
-  readonly socialOpen = signal(false);
-  readonly isMobile = signal(typeof window !== 'undefined' && window.innerWidth <= 991);
+
+  ngOnInit(): void {
+    this.router.events
+      .pipe(
+        filter((e) => e instanceof NavigationEnd),
+        takeUntilDestroyed(this.destroyRef),
+      )
+      .subscribe(() => this.closeMenu());
+  }
 
   @HostListener('window:scroll')
   onScroll(): void {
-    this.sticky.set(window.scrollY > 0);
+    this.scrolled.set(window.scrollY > 24);
   }
 
   @HostListener('window:resize')
   onResize(): void {
-    const mobile = window.innerWidth <= 991;
-    this.isMobile.set(mobile);
-    if (!mobile) {
-      this.menuOpen.set(false);
-      this.socialOpen.set(false);
+    if (window.innerWidth > 991) {
+      this.closeMenu();
     }
   }
 
   toggleMenu(): void {
     this.menuOpen.update((v) => !v);
+    this.lockScroll(this.menuOpen());
   }
 
   closeMenu(): void {
-    this.menuOpen.set(false);
-    this.socialOpen.set(false);
+    if (this.menuOpen()) {
+      this.menuOpen.set(false);
+      this.lockScroll(false);
+    }
   }
 
   toggleTheme(): void {
     this.themeService.toggle();
   }
 
-  toggleSocial(event: Event): void {
-    event.preventDefault();
-    event.stopPropagation();
-    // Dropdown toggling only matters on mobile; desktop uses CSS hover.
-    if (this.isMobile()) {
-      this.socialOpen.update((v) => !v);
+  private lockScroll(lock: boolean): void {
+    if (typeof document !== 'undefined') {
+      document.body.style.overflow = lock ? 'hidden' : '';
     }
   }
 }

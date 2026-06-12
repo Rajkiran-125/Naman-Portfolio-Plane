@@ -1,32 +1,51 @@
-<footer class="footer-area">
-  <div class="container">
-    <div class="row">
-      <div class="col-12">
-        <div class="footer-content d-flex align-items-center justify-content-between">
-          <!-- Copyright Text -->
-          <div class="copywrite-text">
-            <p>
-              Copyright &copy;{{ year }} All rights reserved | This website is made with
-              <i class="fa-regular fa-heart"></i> by
-              <a [href]="site.authorUrl" target="_blank" rel="noopener">{{ site.authorName }}</a>
-            </p>
-          </div>
-
-          <!-- Footer Logo -->
-          <div class="footer-logo">
-            <a routerLink="/"><img [src]="site.brandLogo" alt="Naman Gupta" /></a>
-          </div>
-
-          <!-- Social Info -->
-          <div class="social-info">
-            @for (social of socialLinks; track social.label) {
-              <a [href]="social.url" target="_blank" rel="noopener" [attr.aria-label]="social.label">
-                <i [class]="social.icon" aria-hidden="true"></i>
-              </a>
-            }
-          </div>
-        </div>
-      </div>
+<footer class="footer">
+  <div class="container footer__grid">
+    <!-- Lead CTA -->
+    <div class="footer__lead">
+      <p class="eyebrow">Let's work together</p>
+      <a class="footer__email" [href]="'mailto:' + site.email">
+        {{ site.email }}
+        <i class="fa-solid fa-arrow-up-right" aria-hidden="true"></i>
+      </a>
+      <p class="footer__where">
+        <i class="fa-solid fa-location-dot" aria-hidden="true"></i> {{ site.address }}
+      </p>
     </div>
+
+    <!-- Sitemap -->
+    <nav class="footer__col" aria-label="Footer">
+      <h4 class="footer__heading">Explore</h4>
+      <ul>
+        @for (item of navItems; track item.label) {
+          <li>
+            <a class="footer__nav-link" [routerLink]="item.path ? '/' + item.path : '/'">
+              {{ item.label }}
+            </a>
+          </li>
+        }
+      </ul>
+    </nav>
+
+    <!-- Social -->
+    <div class="footer__col">
+      <h4 class="footer__heading">Follow</h4>
+      <ul>
+        @for (social of socialLinks; track social.label) {
+          <li>
+            <a class="footer__nav-link" [href]="social.url" target="_blank" rel="noopener">
+              <i [class]="social.icon" aria-hidden="true"></i> {{ social.label }}
+            </a>
+          </li>
+        }
+      </ul>
+    </div>
+  </div>
+
+  <div class="container footer__bottom">
+    <span class="footer__brand">{{ site.brandName }}</span>
+    <p class="footer__copy">
+      © {{ year }} {{ site.brandName }}. Crafted by
+      <a [href]="site.authorUrl" target="_blank" rel="noopener" class="link-underline">{{ site.authorName }}</a>
+    </p>
   </div>
 </footer>

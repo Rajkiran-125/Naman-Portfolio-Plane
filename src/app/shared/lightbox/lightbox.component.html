@@ -1,25 +1,29 @@
 @if (open) {
-  <div class="lightbox-overlay" (click)="close()">
-    <button type="button" class="lb-close" (click)="close()" aria-label="Close">
-      <i class="ti-close"></i>
+  <div class="lb" (click)="close()" role="dialog" aria-modal="true" aria-label="Image viewer">
+    <button type="button" class="lb__btn lb__close" (click)="close()" aria-label="Close">
+      <i class="fa-solid fa-xmark"></i>
     </button>
 
     @if (images.length > 1) {
-      <button type="button" class="lb-arrow lb-prev" (click)="prev($event)" aria-label="Previous">
-        <i class="ti-arrow-left"></i>
+      <button type="button" class="lb__btn lb__arrow lb__prev" (click)="prev($event)" aria-label="Previous">
+        <i class="fa-solid fa-arrow-left"></i>
       </button>
     }
 
-    <div class="lb-figure" (click)="$event.stopPropagation()">
-      <img [src]="currentSrc" alt="Gallery image" />
-      @if (images.length > 1) {
-        <div class="lb-counter">{{ (index ?? 0) + 1 }} / {{ images.length }}</div>
-      }
-    </div>
+    <figure class="lb__figure" (click)="$event.stopPropagation()">
+      <img [src]="current?.src" [alt]="current?.title || 'Photograph'" />
+      <figcaption class="lb__caption">
+        <span class="lb__title">{{ current?.title }}</span>
+        @if (current?.meta) { <span class="lb__meta">{{ current?.meta }}</span> }
+        @if (images.length > 1) {
+          <span class="lb__counter">{{ (index ?? 0) + 1 }} / {{ images.length }}</span>
+        }
+      </figcaption>
+    </figure>
 
     @if (images.length > 1) {
-      <button type="button" class="lb-arrow lb-next" (click)="next($event)" aria-label="Next">
-        <i class="ti-arrow-right"></i>
+      <button type="button" class="lb__btn lb__arrow lb__next" (click)="next($event)" aria-label="Next">
+        <i class="fa-solid fa-arrow-right"></i>
       </button>
     }
   </div>

@@ -1,0 +1,99 @@
+:host {
+  display: block;
+  height: 100%;
+}
+
+.collection-card {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  color: inherit;
+}
+
+.collection-card__media {
+  position: relative;
+  aspect-ratio: 4 / 5;
+  overflow: hidden;
+  border-radius: var(--radius);
+  background: var(--surface-2);
+}
+
+.collection-card__img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.9s var(--ease), filter 0.6s var(--ease);
+}
+.collection-card:hover .collection-card__img,
+.collection-card:focus-visible .collection-card__img {
+  transform: scale(1.07);
+}
+
+.collection-card__count {
+  position: absolute;
+  top: 16px;
+  left: 16px;
+  padding: 6px 13px;
+  font-family: var(--font-head);
+  font-size: 0.68rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #fff;
+  background: rgba(10, 9, 7, 0.4);
+  backdrop-filter: blur(6px);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  border-radius: 100px;
+}
+
+.collection-card__view {
+  position: absolute;
+  right: 16px;
+  bottom: 16px;
+  width: 50px;
+  height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
+  color: var(--accent-contrast);
+  background: var(--accent);
+  border-radius: 50%;
+  opacity: 0;
+  transform: translateY(12px) scale(0.8);
+  transition: opacity 0.5s var(--ease), transform 0.5s var(--ease);
+}
+.collection-card:hover .collection-card__view,
+.collection-card:focus-visible .collection-card__view {
+  opacity: 1;
+  transform: none;
+}
+
+.collection-card__label {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 1.2rem 0.2rem 0;
+}
+.collection-card__name {
+  font-size: 1.3rem;
+  font-weight: 700;
+  transition: color 0.3s var(--ease);
+}
+.collection-card:hover .collection-card__name,
+.collection-card:focus-visible .collection-card__name {
+  color: var(--accent);
+}
+.collection-card__desc {
+  margin-top: 0.3rem;
+  font-size: 0.9rem;
+  color: var(--text-muted);
+}
+.collection-card__index {
+  font-family: var(--font-head);
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: var(--text-muted);
+  opacity: 0.5;
+}

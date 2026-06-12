@@ -1,43 +1,54 @@
-<section class="welcome-area">
-  <div class="welcome-slides">
-    @for (slide of current(); track active()) {
+<section class="hero">
+  <!-- Stacked, crossfading background layers -->
+  <div class="hero__stage" aria-hidden="true">
+    @for (slide of slides; track slide.background; let i = $index) {
       <div
-        class="single-welcome-slide bg-img bg-overlay"
+        class="hero__layer"
+        [class.is-active]="active() === i"
         [style.background-image]="'url(' + slide.background + ')'"
-      >
-        <div class="container h-100">
-          <div class="row h-100 align-items-center">
-            <div class="col-12 col-lg-8 col-xl-6">
-              <div class="welcome-text">
-                <h2 [ngClass]="'animated ' + slide.anim" style="animation-delay: 300ms">
-                  @for (line of slide.titleLines; track $index; let last = $last) {
-                    {{ line }}@if (!last) {<br />}
-                  }
-                </h2>
-                <p [ngClass]="'animated ' + slide.anim" style="animation-delay: 500ms">
-                  {{ slide.text }}
-                </p>
-                <div
-                  class="hero-btn-group"
-                  [ngClass]="'animated ' + slide.anim"
-                  style="animation-delay: 700ms"
-                >
-                  <a routerLink="/contact" class="btn alime-btn mb-3 mb-sm-0 mr-4">Contact Me</a>
-                  <a class="hero-mail-contact" [href]="'mailto:' + email">{{ email }}</a>
-                </div>
-              </div>
-            </div>
+      ></div>
+    }
+    <div class="hero__scrim"></div>
+  </div>
+
+  <div class="container hero__content">
+    @for (slide of slides; track slide.titleLines[0]; let i = $index) {
+      @if (active() === i) {
+        <div class="hero__text">
+          <p class="hero__kicker">{{ slide.kicker }}</p>
+          <h1 class="hero__title display">
+            @for (line of slide.titleLines; track $index) {
+              <span class="hero__line"><span>{{ line }}</span></span>
+            }
+          </h1>
+          <p class="hero__sub">{{ slide.text }}</p>
+          <div class="hero__cta">
+            <a routerLink="/gallery" class="btn btn--light">
+              View Portfolio <i class="fa-solid fa-arrow-right" aria-hidden="true"></i>
+            </a>
+            <a routerLink="/contact" class="btn btn--outline-light">Book a Session</a>
           </div>
         </div>
-      </div>
+      }
     }
+  </div>
 
-    <!-- Navigation arrows -->
-    <button type="button" class="owl-prev" (click)="prev()" aria-label="Previous slide">
-      <i class="ti-arrow-left"></i>
-    </button>
-    <button type="button" class="owl-next" (click)="next()" aria-label="Next slide">
-      <i class="ti-arrow-right"></i>
-    </button>
+  <!-- Slide indicators -->
+  <div class="hero__dots">
+    @for (slide of slides; track $index; let i = $index) {
+      <button
+        type="button"
+        class="hero__dot"
+        [class.is-active]="active() === i"
+        (click)="goTo(i)"
+        [attr.aria-label]="'Go to slide ' + (i + 1)"
+      ></button>
+    }
+  </div>
+
+  <!-- Scroll cue -->
+  <div class="hero__scroll" aria-hidden="true">
+    <span>Scroll</span>
+    <span class="hero__scroll-line"></span>
   </div>
 </section>

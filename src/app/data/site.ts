@@ -7,15 +7,16 @@ export interface NavItem {
 export interface SocialLink {
   label: string;
   url: string;
-  /** Icon CSS class (themify `ti-*` or FontAwesome `fa-*`). */
+  /** FontAwesome 6 icon class. */
   icon: string;
 }
 
 export const NAV_ITEMS: NavItem[] = [
   { label: 'Home', path: '' },
-  { label: 'About', path: 'about' },
   { label: 'Gallery', path: 'gallery' },
-  { label: 'Blog', path: 'blog' },
+  { label: 'Services', path: 'services' },
+  { label: 'About', path: 'about' },
+  { label: 'Journal', path: 'blog' },
   { label: 'Contact', path: 'contact' },
 ];
 
@@ -23,30 +24,35 @@ export const SOCIAL_LINKS: SocialLink[] = [
   {
     label: 'Instagram',
     url: 'https://www.instagram.com/ng_shooter?igsh=Nno3N3ZlejIyMTRx',
-    icon: 'ti-instagram',
+    icon: 'fa-brands fa-instagram',
   },
   {
     label: 'Behance',
     url: 'https://www.behance.net/namanguptab17d',
-    icon: 'fa-brands fa-square-behance',
+    icon: 'fa-brands fa-behance',
   },
   {
     label: 'LinkedIn',
     url: 'https://www.linkedin.com/in/naman-gupta-a0b422212?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=ios_app',
-    icon: 'ti-linkedin',
+    icon: 'fa-brands fa-linkedin-in',
   },
   {
     label: 'Facebook',
     url: 'https://www.facebook.com/share/17kvjw3o9P/?mibextid=wwXIfr',
-    icon: 'ti-facebook',
+    icon: 'fa-brands fa-facebook-f',
   },
 ];
 
 export const SITE = {
+  brandName: 'Naman Gupta',
+  brandInitials: 'NG',
   brandLogo: 'assets/img/core-img/logo.PNG',
+  role: 'Photographer & Visual Storyteller',
   email: 'namangupta6449@gmail.com',
   phone: '+91 8419979591',
-  address: 'Mumbai, Maharashtra',
+  /** Digits only, for the WhatsApp deep link. */
+  whatsapp: '918419979591',
+  address: 'Mumbai, Maharashtra, India',
   authorName: 'Rajkiran Jaiswar',
   authorUrl: 'https://rajkiranJaiswar.com',
   mapEmbedUrl:

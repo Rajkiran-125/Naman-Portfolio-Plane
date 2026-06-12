@@ -2,15 +2,66 @@
   display: block;
 }
 
-// Parallax replacement for jarallax — fixed background on capable viewports.
-.parallax-fixed {
-  background-attachment: fixed;
-  background-position: center center;
+.page-hero {
+  position: relative;
+  display: flex;
+  align-items: flex-end;
+  min-height: clamp(360px, 56vh, 560px);
+  padding-top: calc(var(--header-h) + 40px);
+  padding-bottom: clamp(48px, 8vh, 90px);
   background-size: cover;
+  background-position: center;
+  color: var(--on-dark);
+  overflow: hidden;
 }
 
-@media (max-width: 991px) {
-  .parallax-fixed {
-    background-attachment: scroll;
-  }
+.page-hero__scrim {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(8, 8, 8, 0.45), rgba(8, 8, 8, 0.7));
+}
+
+.page-hero__inner {
+  position: relative;
+  width: 100%;
+}
+
+.page-hero__crumbs {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  font-family: var(--font-head);
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.7);
+  margin-bottom: 1.2rem;
+}
+.page-hero__crumbs a:hover {
+  color: var(--accent-soft);
+}
+.page-hero__crumbs .is-current {
+  color: var(--accent-soft);
+}
+
+.page-hero__title {
+  color: #fff;
+  font-size: clamp(2.6rem, 7vw, 5rem);
+  font-weight: 800;
+  letter-spacing: -0.035em;
+  line-height: 1;
+  animation: phUp 0.8s var(--ease);
+}
+
+.page-hero__subtitle {
+  max-width: 560px;
+  margin-top: 1.2rem;
+  font-size: 1.05rem;
+  color: rgba(244, 242, 236, 0.85);
+}
+
+@keyframes phUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: none; }
 }

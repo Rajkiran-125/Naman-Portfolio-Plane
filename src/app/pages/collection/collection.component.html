@@ -1,0 +1,36 @@
+@if (collection(); as col) {
+  <app-breadcrumb
+    [title]="col.name"
+    [crumb]="col.name"
+    [subtitle]="col.description"
+    [background]="col.coverImage"
+  />
+
+  <div class="collection-intro">
+    <div class="container collection-intro__bar">
+      <a routerLink="/gallery" class="collection-intro__back link-underline">
+        <i class="fa-solid fa-arrow-left" aria-hidden="true"></i> All collections
+      </a>
+      <span class="collection-intro__count">{{ col.images.length }} photographs</span>
+    </div>
+  </div>
+
+  @if (col.images.length) {
+    <app-gallery-grid [items]="col.images" [showFilters]="false" [flushTop]="true" />
+  } @else {
+    <div class="collection-empty container">
+      <i class="fa-regular fa-image collection-empty__icon" aria-hidden="true"></i>
+      <p>This collection has no photos yet.</p>
+    </div>
+  }
+
+  <app-cta-band [background]="col.coverImage" />
+} @else {
+  <app-breadcrumb title="Not found" crumb="Not found" />
+  <div class="collection-empty container">
+    <i class="fa-solid fa-magnifying-glass collection-empty__icon" aria-hidden="true"></i>
+    <h3 class="collection-empty__title">We couldn't find that collection</h3>
+    <p>It may have been moved or renamed.</p>
+    <a routerLink="/gallery" class="btn">Browse all collections</a>
+  </div>
+}

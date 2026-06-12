@@ -2,35 +2,123 @@
   display: block;
 }
 
-// CSS-columns masonry (replaces isotope). Items flow top-to-bottom across columns.
-.alime-masonry {
-  column-count: 4;
-  column-gap: 30px;
+.gallery {
+  padding-block: var(--section-y);
+}
+.gallery--flush {
+  padding-top: clamp(28px, 4vh, 48px);
 }
 
-@media (max-width: 1199px) {
-  .alime-masonry {
-    column-count: 3;
-  }
+/* ---- Filters ------------------------------------------------------------ */
+.gallery__filters {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.5rem;
+  margin-bottom: clamp(2rem, 5vw, 3.5rem);
 }
-@media (max-width: 767px) {
-  .alime-masonry {
-    column-count: 2;
-    column-gap: 16px;
-  }
+.gallery__filter {
+  font-family: var(--font-head);
+  font-size: 0.8rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  padding: 0.6em 1.4em;
+  border-radius: 100px;
+  color: var(--text-muted);
+  border: 1px solid transparent;
+  transition: color 0.3s var(--ease), background-color 0.3s var(--ease),
+    border-color 0.3s var(--ease);
+}
+.gallery__filter:hover {
+  color: var(--text);
+}
+.gallery__filter.is-active {
+  color: var(--accent-contrast);
+  background: var(--text);
+  border-color: var(--text);
 }
 
-.alime-masonry-item {
+/* ---- Masonry (CSS columns) --------------------------------------------- */
+.gallery__masonry {
+  column-count: 3;
+  column-gap: clamp(0.9rem, 1.6vw, 1.6rem);
+}
+@media (max-width: 991px) {
+  .gallery__masonry { column-count: 2; }
+}
+@media (max-width: 520px) {
+  .gallery__masonry { column-count: 1; }
+}
+
+.gallery__item {
+  position: relative;
+  display: block;
+  width: 100%;
+  margin-bottom: clamp(0.9rem, 1.6vw, 1.6rem);
   break-inside: avoid;
-  margin-bottom: 30px;
-}
-
-@media (max-width: 767px) {
-  .alime-masonry-item {
-    margin-bottom: 16px;
-  }
-}
-
-.portfolio-img {
+  border-radius: var(--radius);
+  overflow: hidden;
+  background: var(--surface-2);
   cursor: pointer;
+}
+.gallery__item img {
+  width: 100%;
+  height: auto;
+  transition: transform 0.9s var(--ease);
+}
+.gallery__item:hover img {
+  transform: scale(1.06);
+}
+
+.gallery__overlay {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 1.2rem;
+  background: linear-gradient(180deg, transparent 45%, rgba(8, 8, 8, 0.72));
+  opacity: 0;
+  transition: opacity 0.5s var(--ease);
+}
+.gallery__item:hover .gallery__overlay,
+.gallery__item:focus-visible .gallery__overlay {
+  opacity: 1;
+}
+.gallery__cap {
+  text-align: left;
+  transform: translateY(8px);
+  transition: transform 0.5s var(--ease);
+}
+.gallery__item:hover .gallery__cap {
+  transform: none;
+}
+.gallery__cap-title {
+  display: block;
+  font-family: var(--font-head);
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: #fff;
+}
+.gallery__cap-meta {
+  display: block;
+  margin-top: 2px;
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--accent-soft);
+}
+.gallery__zoom {
+  flex: 0 0 auto;
+  width: 42px;
+  height: 42px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+  color: #fff;
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  border-radius: 50%;
 }

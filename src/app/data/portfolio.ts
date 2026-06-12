@@ -7,6 +7,10 @@ export interface PortfolioItem {
   categories: PortfolioCategory[];
   /** Render across two grid columns (wide tile). */
   wide?: boolean;
+  /** Optional display title shown on hover / in the lightbox caption. */
+  title?: string;
+  /** Optional location shown alongside the category. */
+  location?: string;
 }
 
 export interface PortfolioFilter {
@@ -15,12 +19,30 @@ export interface PortfolioFilter {
   value: PortfolioCategory | null;
 }
 
+/** Human-friendly label for each category (used on cards, hovers, filters). */
+export const CATEGORY_LABELS: Record<PortfolioCategory, string> = {
+  human: 'Portrait',
+  nature: 'Naturescape',
+  country: 'Travel',
+  video: 'Motion',
+};
+
+/** Display label for an item: its explicit title, or the first category label. */
+export function itemTitle(item: PortfolioItem): string {
+  return item.title ?? CATEGORY_LABELS[item.categories[0]] ?? 'Photograph';
+}
+
+/** Primary category label for an item. */
+export function itemCategory(item: PortfolioItem): string {
+  return CATEGORY_LABELS[item.categories[0]] ?? '';
+}
+
 export const PORTFOLIO_FILTERS: PortfolioFilter[] = [
   { label: 'All', value: null },
-  { label: 'Human', value: 'human' },
-  { label: 'Nature', value: 'nature' },
-  { label: 'Country', value: 'country' },
-  { label: 'Video', value: 'video' },
+  { label: 'Portraits', value: 'human' },
+  { label: 'Naturescapes', value: 'nature' },
+  { label: 'Travel', value: 'country' },
+  { label: 'Motion', value: 'video' },
 ];
 
 const B = 'https://mir-s3-cdn-cf.behance.net/project_modules/';

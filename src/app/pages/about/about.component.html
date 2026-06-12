@@ -1,73 +1,88 @@
-<app-breadcrumb title="About Us" crumb="About" />
+<app-breadcrumb
+  title="About"
+  crumb="About"
+  subtitle="Photographer, storyteller and chaser of golden hour."
+  background="https://mir-s3-cdn-cf.behance.net/project_modules/disp/c036a9200602291.666586566ccdb.jpeg"
+/>
 
-<!-- About Us Area -->
-<div class="about-us-area section-padding-80-0 clearfix">
-  <div class="container">
-    <div class="row align-items-center">
-      <div class="col-12 col-lg-6">
-        <div class="about-us-content mb-80">
-          <h3 appAnimateOnScroll="fadeInUp" animateDelay="100ms">I Live For Passion</h3>
-          <div class="line" appAnimateOnScroll="fadeInUp" animateDelay="200ms"></div>
-          <p appAnimateOnScroll="fadeInUp" animateDelay="300ms">
-            I was always inclined towards photography, right after completing high school I bought a
-            semi professional camera and started taking pictures of random things. After a while I
-            developed interest in capturing portraits of people, learning about light in detail and
-            developing a skill set helped me to work as a professional. My expertise lies in working
-            for clothing brands, jewelry brands and making videos. I have helped more than 30 brands
-            to represent themselves by delivering the quality they deserve.
-          </p>
-          <a
-            class="btn alime-btn btn-2 mt-30"
-            appAnimateOnScroll="fadeInUp"
-            animateDelay="500ms"
-            routerLink="/contact"
-          >
-            Contact Me
-          </a>
-        </div>
-      </div>
-      <div class="col-12 col-lg-6">
-        <div class="about-video-area mb-80" appAnimateOnScroll="fadeInUp" animateDelay="100ms">
-          <div class="about-video-contener">
-            <video width="350" height="450" controls loop autoplay muted playsinline>
-              <source src="assets/img/core-img/IMG_9997.MOV" type="video/mp4" />
-            </video>
-          </div>
-        </div>
-      </div>
+<!-- Story -->
+<section class="section about-story">
+  <div class="container about-story__grid">
+    <div class="about-story__media" appReveal="left">
+      <video autoplay loop muted playsinline preload="metadata" aria-label="Naman Gupta at work">
+        <source src="assets/img/core-img/IMG_9997.MOV" type="video/mp4" />
+      </video>
     </div>
-  </div>
-</div>
-
-<!-- Why Choose Us Area -->
-<section class="why-choose-us-area bg-gray section-padding-80-0 clearfix">
-  <div class="container">
-    <div class="row">
-      <div class="col-12">
-        <div class="section-heading text-center" appAnimateOnScroll="fadeInUp" animateDelay="100ms">
-          <h2>Why Choose Us</h2>
-        </div>
-      </div>
-    </div>
-
-    <div class="row">
-      @for (card of whyChoose; track card.title) {
-        <div class="col-md-6 col-lg-4">
-          <div
-            class="why-choose-us-content text-center mb-80"
-            appAnimateOnScroll="fadeInUp"
-            [animateDelay]="card.delay"
-          >
-            <div class="chosse-us-icon">
-              <i [class]="card.icon" aria-hidden="true"></i>
-            </div>
-            <h4>{{ card.title }}</h4>
-            <p>{{ card.text }}</p>
-          </div>
-        </div>
-      }
+    <div class="about-story__body" appReveal="right">
+      <p class="eyebrow">I live for passion</p>
+      <h2 class="about-story__title">From a curious teenager with a camera to a working photographer.</h2>
+      <p>
+        I was always drawn to photography. Right after high school I bought a semi-professional
+        camera and started photographing everything in sight. Before long I fell for portraiture —
+        studying light in detail and building the skills to work professionally.
+      </p>
+      <p>
+        Today my expertise lies in working with clothing brands, jewellery houses and crafting
+        films. I have helped more than 30 brands represent themselves by delivering the quality
+        they deserve — and I am just getting started.
+      </p>
+      <a routerLink="/contact" class="btn">
+        Work with me <i class="fa-solid fa-arrow-right" aria-hidden="true"></i>
+      </a>
     </div>
   </div>
 </section>
 
-<app-instagram-feed />
+<app-stats [soft]="true" />
+
+<!-- Timeline -->
+<section class="section about-timeline">
+  <div class="container">
+    <div class="section-head section-head--center" appReveal>
+      <p class="eyebrow eyebrow--center">The journey</p>
+      <h2>A path shaped by light</h2>
+    </div>
+
+    <ol class="timeline">
+      @for (entry of timeline; track entry.year; let i = $index) {
+        <li class="timeline__item" appReveal [revealDelay]="i * 80">
+          <span class="timeline__year">{{ entry.year }}</span>
+          <div class="timeline__card">
+            <h3 class="timeline__title">{{ entry.title }}</h3>
+            <p>{{ entry.text }}</p>
+          </div>
+        </li>
+      }
+    </ol>
+  </div>
+</section>
+
+<!-- Equipment + fun facts -->
+<section class="section section--soft about-extras">
+  <div class="container about-extras__grid">
+    <div appReveal="left">
+      <p class="eyebrow">In the bag</p>
+      <h3 class="about-extras__heading">Equipment</h3>
+      <ul class="about-extras__list">
+        @for (item of equipment; track item) {
+          <li><i class="fa-solid fa-camera" aria-hidden="true"></i> {{ item }}</li>
+        }
+      </ul>
+    </div>
+    <div appReveal="right">
+      <p class="eyebrow">Off the clock</p>
+      <h3 class="about-extras__heading">Fun facts</h3>
+      <ul class="about-extras__list">
+        @for (fact of funFacts; track fact) {
+          <li><i class="fa-solid fa-star" aria-hidden="true"></i> {{ fact }}</li>
+        }
+      </ul>
+    </div>
+  </div>
+</section>
+
+<app-cta-band
+  eyebrow="Say hello"
+  title="Let's make something you'll keep forever"
+  background="https://mir-s3-cdn-cf.behance.net/project_modules/disp/b2e896200602291.666586566b430.jpg"
+/>

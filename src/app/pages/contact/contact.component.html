@@ -1,48 +1,111 @@
-<app-breadcrumb title="Contact" crumb="Contact" />
+<app-breadcrumb
+  title="Contact"
+  crumb="Contact"
+  subtitle="Let's talk about your next shoot."
+  background="https://mir-s3-cdn-cf.behance.net/project_modules/disp/30e557205663793.66bee74e7630b.jpg"
+/>
 
-<!-- Contact Area -->
-<div class="contact-area section-padding-80-50">
-  <div class="container">
-    <div class="row">
-      <div class="col-12 col-lg-6">
-        <h2 class="contact-title mb-30">Let’s Work <br />Together</h2>
-      </div>
-      <div class="col-12 col-md-6 col-lg-3">
-        <div class="contact-info mb-30">
-          <p>Email</p>
-          <a [href]="'mailto:' + email">{{ email }}</a>
-        </div>
-        <div class="contact-info mb-30">
-          <p>Call Us</p>
-          <a [href]="'tel:' + phone">{{ phone }}</a>
-        </div>
-      </div>
-      <div class="col-12 col-md-6 col-lg-3">
-        <div class="contact-info mb-30">
-          <p>Address</p>
-          <a>{{ address }}</a>
+<section class="section contact">
+  <div class="container contact__grid">
+    <!-- Left: info -->
+    <div class="contact__info" appReveal="left">
+      <p class="eyebrow">Get in touch</p>
+      <h2 class="contact__title">Have a project in mind?</h2>
+      <p class="contact__lead">
+        Tell me a little about what you're planning and I'll get back to you within a day or two.
+        Prefer to chat? WhatsApp is the fastest way to reach me.
+      </p>
+
+      <ul class="contact__details">
+        <li>
+          <span class="contact__icon"><i class="fa-solid fa-envelope"></i></span>
+          <span>
+            <small>Email</small>
+            <a [href]="'mailto:' + site.email">{{ site.email }}</a>
+          </span>
+        </li>
+        <li>
+          <span class="contact__icon"><i class="fa-solid fa-phone"></i></span>
+          <span>
+            <small>Call</small>
+            <a [href]="'tel:' + site.phone">{{ site.phone }}</a>
+          </span>
+        </li>
+        <li>
+          <span class="contact__icon"><i class="fa-solid fa-location-dot"></i></span>
+          <span>
+            <small>Studio</small>
+            <a>{{ site.address }}</a>
+          </span>
+        </li>
+      </ul>
+
+      <div class="contact__actions">
+        <a [href]="whatsappLink" target="_blank" rel="noopener" class="btn">
+          <i class="fa-brands fa-whatsapp"></i> WhatsApp me
+        </a>
+        <div class="contact__social">
+          @for (s of social; track s.label) {
+            <a [href]="s.url" target="_blank" rel="noopener" [attr.aria-label]="s.label">
+              <i [class]="s.icon"></i>
+            </a>
+          }
         </div>
       </div>
     </div>
-  </div>
-</div>
 
-<!-- Map Area -->
-<div class="map-area section-padding-0-80">
-  <div class="container">
-    <div id="map">
-      <iframe
-        [src]="mapUrl"
-        width="600"
-        height="450"
-        style="border: 0"
-        allowfullscreen
-        loading="lazy"
-        referrerpolicy="no-referrer-when-downgrade"
-        title="Mumbai, Maharashtra"
-      ></iframe>
+    <!-- Right: form -->
+    <div class="contact__form-wrap" appReveal="right">
+      @if (sent()) {
+        <div class="contact__success">
+          <i class="fa-solid fa-circle-check"></i>
+          <h3>Thank you!</h3>
+          <p>Your email client should have opened with your message ready to send. Talk soon.</p>
+        </div>
+      } @else {
+        <form class="contact__form" #form="ngForm" (ngSubmit)="submit(form)" novalidate>
+          <div class="field">
+            <label for="name">Name</label>
+            <input id="name" name="name" type="text" [(ngModel)]="model.name" #name="ngModel" required />
+            @if (name.invalid && name.touched) { <span class="field__err">Please enter your name.</span> }
+          </div>
+
+          <div class="field">
+            <label for="email">Email</label>
+            <input id="email" name="email" type="email" [(ngModel)]="model.email" #email="ngModel" required email />
+            @if (email.invalid && email.touched) { <span class="field__err">A valid email helps me reply.</span> }
+          </div>
+
+          <div class="field">
+            <label for="subject">Subject</label>
+            <input id="subject" name="subject" type="text" [(ngModel)]="model.subject" placeholder="Portrait, brand campaign…" />
+          </div>
+
+          <div class="field">
+            <label for="message">Message</label>
+            <textarea id="message" name="message" rows="5" [(ngModel)]="model.message" #message="ngModel" required></textarea>
+            @if (message.invalid && message.touched) { <span class="field__err">Tell me a little about your project.</span> }
+          </div>
+
+          <button type="submit" class="btn">
+            Send message <i class="fa-solid fa-arrow-right"></i>
+          </button>
+        </form>
+      }
     </div>
   </div>
-</div>
+</section>
 
-<app-instagram-feed [showHeading]="false" />
+<!-- Map -->
+<section class="contact-map" aria-label="Studio location">
+  <iframe
+    [src]="mapUrl"
+    width="100%"
+    height="460"
+    style="border: 0"
+    allowfullscreen
+    loading="lazy"
+    referrerpolicy="no-referrer-when-downgrade"
+    title="Mumbai, Maharashtra"
+  ></iframe>
+</section>

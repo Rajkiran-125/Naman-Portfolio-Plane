@@ -1,0 +1,27 @@
+<a
+  class="collection-card"
+  [routerLink]="['/gallery', collection().slug]"
+  [attr.aria-label]="collection().name + ' collection, ' + collection().images.length + ' photos'"
+>
+  <div class="collection-card__media">
+    <img
+      class="collection-card__img"
+      [src]="collection().coverImage"
+      [alt]="collection().name + ' cover photograph'"
+      loading="lazy"
+      decoding="async"
+    />
+    <span class="collection-card__count">{{ collection().images.length }} photos</span>
+    <span class="collection-card__view" aria-hidden="true">
+      <i class="fa-solid fa-arrow-right"></i>
+    </span>
+  </div>
+
+  <div class="collection-card__label">
+    <div>
+      <h3 class="collection-card__name">{{ collection().name }}</h3>
+      <p class="collection-card__desc">{{ collection().description }}</p>
+    </div>
+    <span class="collection-card__index" aria-hidden="true">0{{ collection().id }}</span>
+  </div>
+</a>

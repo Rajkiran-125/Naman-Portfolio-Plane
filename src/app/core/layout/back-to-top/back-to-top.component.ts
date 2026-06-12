@@ -1,23 +1,51 @@
 import { ChangeDetectionStrategy, Component, HostListener, signal } from '@angular/core';
 
-/** Replaces the jQuery scrollUp plugin. Reuses the template's `#scrollUp` styling. */
+/** Floating back-to-top control, bottom-right. Appears after scrolling down. */
 @Component({
   selector: 'app-back-to-top',
   standalone: true,
   template: `
-    @if (visible()) {
-      <a id="scrollUp" href="#" (click)="scrollTop($event)" aria-label="Back to top">
-        <i class="arrow_carrot-up"></i>
-      </a>
-    }
+    <button
+      type="button"
+      class="to-top"
+      [class.is-visible]="visible()"
+      (click)="scrollTop()"
+      aria-label="Back to top"
+    >
+      <i class="fa-solid fa-arrow-up" aria-hidden="true"></i>
+    </button>
   `,
   styles: [
     `
-      #scrollUp {
+      .to-top {
+        position: fixed;
+        right: clamp(16px, 3vw, 32px);
+        bottom: clamp(16px, 3vw, 32px);
+        z-index: 1100;
+        width: 50px;
+        height: 50px;
         display: flex;
         align-items: center;
         justify-content: center;
-        text-decoration: none;
+        font-size: 16px;
+        color: var(--accent-contrast);
+        background: var(--text);
+        border-radius: 50%;
+        box-shadow: var(--shadow-md);
+        opacity: 0;
+        visibility: hidden;
+        transform: translateY(16px);
+        transition: opacity 0.4s var(--ease), transform 0.4s var(--ease),
+          background-color 0.4s var(--ease);
+      }
+      .to-top.is-visible {
+        opacity: 1;
+        visibility: visible;
+        transform: none;
+      }
+      .to-top:hover {
+        background: var(--accent);
+        transform: translateY(-3px);
       }
     `,
   ],
@@ -28,11 +56,10 @@ export class BackToTopComponent {
 
   @HostListener('window:scroll')
   onScroll(): void {
-    this.visible.set(window.scrollY > 600);
+    this.visible.set(window.scrollY > 700);
   }
 
-  scrollTop(event: Event): void {
-    event.preventDefault();
+  scrollTop(): void {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   }
 }

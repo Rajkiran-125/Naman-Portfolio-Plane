@@ -2,63 +2,239 @@
   display: block;
 }
 
-// Reveal the Social dropdown in the mobile drawer when its parent is active.
-// (Desktop uses classy-nav's CSS :hover behaviour.)
-:host ::ng-deep .breakpoint-on .classynav ul li.has-down.active > .dropdown {
-  display: block !important;
-}
-
-// Caret toggle position inside the mobile drawer.
-:host ::ng-deep .breakpoint-on .classynav ul li.has-down {
-  .dd-trigger {
-    position: absolute;
-  }
-}
-
-.nav-backdrop {
+/* The header floats over hero imagery; text is light until scrolled. */
+.site-header {
   position: fixed;
-  inset: 0;
-  z-index: 999;
-  background-color: rgba(0, 0, 0, 0.4);
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 1000;
+  color: var(--on-dark);
+  transition: background-color 0.4s var(--ease), box-shadow 0.4s var(--ease),
+    color 0.4s var(--ease);
 }
 
-// Dark-mode toggle button sitting at the end of the nav list.
-.theme-toggle-item {
+.site-header__bar {
   display: flex;
   align-items: center;
+  justify-content: space-between;
+  height: var(--header-h);
+}
+
+/* Solid, blurred bar once the page is scrolled. */
+.site-header.is-scrolled {
+  color: var(--text);
+  background: color-mix(in srgb, var(--bg) 80%, transparent);
+  backdrop-filter: blur(14px) saturate(140%);
+  -webkit-backdrop-filter: blur(14px) saturate(140%);
+  border-bottom: 1px solid var(--border-soft);
+}
+
+/* Brand wordmark */
+.brand {
+  display: flex;
+  flex-direction: column;
+  line-height: 1;
+}
+.brand__mark {
+  font-family: var(--font-head);
+  font-size: 1.25rem;
+  font-weight: 800;
+  letter-spacing: -0.01em;
+}
+.brand__role {
+  margin-top: 4px;
+  font-size: 0.58rem;
+  font-weight: 600;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  opacity: 0.7;
+}
+
+/* Desktop nav */
+.nav__list {
+  display: flex;
+  gap: clamp(1.2rem, 2.4vw, 2.6rem);
+}
+.nav__link {
+  position: relative;
+  font-family: var(--font-head);
+  font-size: 0.82rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  padding: 6px 0;
+}
+.nav__link::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  height: 1.5px;
+  background: var(--accent);
+  transform: scaleX(0);
+  transform-origin: right;
+  transition: transform 0.4s var(--ease);
+}
+.nav__link:hover,
+.nav__link.is-active {
+  color: var(--accent);
+}
+.nav__link:hover::after,
+.nav__link.is-active::after {
+  transform: scaleX(1);
+  transform-origin: left;
+}
+
+/* Actions cluster */
+.site-header__actions {
+  display: flex;
+  align-items: center;
+  gap: 14px;
 }
 
 .theme-toggle {
+  width: 40px;
+  height: 40px;
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 38px;
-  height: 38px;
-  padding: 0;
-  border: none;
+  font-size: 15px;
   border-radius: 50%;
-  background-color: transparent;
-  color: #ffffff;
-  font-size: 16px;
-  cursor: pointer;
-  transition: color 300ms ease, background-color 300ms ease;
+  border: 1px solid currentColor;
+  opacity: 0.85;
+  transition: color 0.3s var(--ease), transform 0.4s var(--ease), opacity 0.3s var(--ease);
+}
+.theme-toggle:hover {
+  color: var(--accent);
+  opacity: 1;
+  transform: rotate(-12deg);
+}
 
-  &:hover,
-  &:focus {
-    color: #fc6060;
-    outline: none;
+.header-cta {
+  font-family: var(--font-head);
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  padding: 0.7em 1.4em;
+  border: 1px solid currentColor;
+  border-radius: 100px;
+  transition: background-color 0.4s var(--ease), color 0.4s var(--ease), border-color 0.4s var(--ease);
+}
+.header-cta:hover {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: var(--accent-contrast);
+}
+
+/* Hamburger (mobile only) */
+.burger {
+  display: none;
+  width: 42px;
+  height: 42px;
+  position: relative;
+}
+.burger span {
+  position: absolute;
+  left: 9px;
+  width: 24px;
+  height: 2px;
+  background: currentColor;
+  transition: transform 0.4s var(--ease), opacity 0.3s var(--ease);
+}
+.burger span:nth-child(1) { top: 16px; }
+.burger span:nth-child(2) { top: 24px; }
+.site-header.is-open .burger span:nth-child(1) { transform: translateY(4px) rotate(45deg); }
+.site-header.is-open .burger span:nth-child(2) { transform: translateY(-4px) rotate(-45deg); }
+
+/* While the drawer is open the bar text must read on the drawer background. */
+.site-header.is-open {
+  color: var(--text);
+}
+
+/* ---- Mobile drawer ------------------------------------------------------ */
+.drawer {
+  position: fixed;
+  inset: 0;
+  z-index: 990;
+  background: color-mix(in srgb, var(--bg) 96%, transparent);
+  backdrop-filter: blur(8px);
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.45s var(--ease), visibility 0.45s var(--ease);
+}
+.drawer.is-open {
+  opacity: 1;
+  visibility: visible;
+}
+.drawer__inner {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 2.5rem;
+  padding: var(--header-h) var(--gutter) 3rem;
+}
+.drawer__list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+.drawer__list li {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.5s var(--ease), transform 0.5s var(--ease);
+}
+.drawer.is-open .drawer__list li {
+  opacity: 1;
+  transform: none;
+}
+.drawer__list a {
+  display: flex;
+  align-items: baseline;
+  gap: 1rem;
+  font-family: var(--font-head);
+  font-size: clamp(2rem, 9vw, 3rem);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  color: var(--text);
+}
+.drawer__list a.is-active,
+.drawer__list a:hover {
+  color: var(--accent);
+}
+.drawer__index {
+  font-size: 0.8rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  color: var(--accent);
+}
+.drawer__social {
+  display: flex;
+  gap: 1.4rem;
+  font-size: 1.25rem;
+}
+.drawer__social a {
+  color: var(--text-muted);
+}
+.drawer__social a:hover {
+  color: var(--accent);
+}
+
+/* ---- Breakpoints -------------------------------------------------------- */
+@media (max-width: 991px) {
+  .nav,
+  .header-cta {
+    display: none;
+  }
+  .burger {
+    display: block;
   }
 }
 
-// Inside the open mobile drawer the nav text is dark, so match it.
-:host ::ng-deep .breakpoint-on .theme-toggle {
-  color: #252525;
-  width: auto;
-  height: auto;
-  justify-content: flex-start;
-
-  &:hover,
-  &:focus {
-    color: #fc6060;
+@media (prefers-reduced-motion: reduce) {
+  .drawer__list li {
+    transition: none;
   }
 }

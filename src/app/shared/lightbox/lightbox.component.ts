@@ -7,7 +7,13 @@ import {
   Output,
 } from '@angular/core';
 
-/** Full-screen image viewer with prev/next/esc — replaces magnific-popup gallery. */
+export interface LightboxImage {
+  src: string;
+  title?: string;
+  meta?: string;
+}
+
+/** Full-screen image viewer with prev/next/esc and a caption. */
 @Component({
   selector: 'app-lightbox',
   standalone: true,
@@ -16,9 +22,7 @@ import {
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class LightboxComponent {
-  /** Image URLs to page through. */
-  @Input() images: string[] = [];
-  /** Active image index, or `null` when the lightbox is closed. */
+  @Input() images: LightboxImage[] = [];
   @Input() index: number | null = null;
 
   @Output() indexChange = new EventEmitter<number>();
@@ -28,8 +32,8 @@ export class LightboxComponent {
     return this.index !== null && this.index >= 0 && this.images.length > 0;
   }
 
-  get currentSrc(): string {
-    return this.index !== null ? this.images[this.index] : '';
+  get current(): LightboxImage | null {
+    return this.index !== null ? this.images[this.index] : null;
   }
 
   close(): void {

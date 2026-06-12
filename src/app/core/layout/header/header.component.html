@@ -1,88 +1,84 @@
-<header class="header-area">
-  <div class="main-header-area" [class.sticky]="sticky()">
-    <div
-      class="classy-nav-container"
-      [class.breakpoint-off]="!isMobile()"
-      [class.breakpoint-on]="isMobile()"
-    >
-      <div class="container">
-        <nav class="classy-navbar justify-content-between" id="alimeNav">
-          <!-- Logo -->
-          <a class="nav-brand" routerLink="/" (click)="closeMenu()">
-            <img [src]="logo" alt="Naman Gupta" />
-          </a>
+<header class="site-header" [class.is-scrolled]="scrolled()" [class.is-open]="menuOpen()">
+  <div class="site-header__bar container container--wide">
+    <!-- Wordmark -->
+    <a class="brand" routerLink="/" aria-label="Naman Gupta — home">
+      <span class="brand__mark">{{ brand }}</span>
+      <span class="brand__role">{{ role }}</span>
+    </a>
 
-          <!-- Navbar Toggler -->
-          <div class="classy-navbar-toggler" (click)="toggleMenu()">
-            <span class="navbarToggler" [class.active]="menuOpen()">
-              <span></span><span></span><span></span>
-            </span>
-          </div>
+    <!-- Desktop navigation -->
+    <nav class="nav" aria-label="Primary">
+      <ul class="nav__list">
+        @for (item of navItems; track item.label) {
+          <li>
+            <a
+              class="nav__link"
+              [routerLink]="item.path ? '/' + item.path : '/'"
+              routerLinkActive="is-active"
+              [routerLinkActiveOptions]="{ exact: item.path === '' }"
+            >
+              {{ item.label }}
+            </a>
+          </li>
+        }
+      </ul>
+    </nav>
 
-          <!-- Menu -->
-          <div class="classy-menu" [class.menu-on]="menuOpen()">
-            <!-- Close Button -->
-            <div class="classycloseIcon" (click)="closeMenu()">
-              <div class="cross-wrap"><span class="top"></span><span class="bottom"></span></div>
-            </div>
+    <div class="site-header__actions">
+      <button
+        type="button"
+        class="theme-toggle"
+        (click)="toggleTheme()"
+        [attr.aria-label]="theme() === 'dark' ? 'Switch to light mode' : 'Switch to dark mode'"
+        [attr.aria-pressed]="theme() === 'dark'"
+      >
+        @if (theme() === 'dark') {
+          <i class="fa-solid fa-sun" aria-hidden="true"></i>
+        } @else {
+          <i class="fa-solid fa-moon" aria-hidden="true"></i>
+        }
+      </button>
 
-            <div class="classynav">
-              <ul id="nav">
-                @for (item of navItems; track item.label) {
-                  <li
-                    routerLinkActive="active"
-                    [routerLinkActiveOptions]="{ exact: item.path === '' }"
-                  >
-                    <a [routerLink]="item.path ? '/' + item.path : '/'" (click)="closeMenu()">
-                      {{ item.label }}
-                    </a>
-                  </li>
-                }
+      <a class="header-cta" routerLink="/contact">Book a session</a>
 
-                <!-- Social dropdown -->
-                <li class="has-down" [class.active]="socialOpen()">
-                  <a href="#" (click)="toggleSocial($event)">Social</a>
-                  @if (isMobile()) {
-                    <span class="dd-trigger" (click)="toggleSocial($event)"></span>
-                  }
-                  <ul class="dropdown">
-                    @for (social of socialLinks; track social.label) {
-                      <li>
-                        <a [href]="social.url" target="_blank" rel="noopener">- {{ social.label }}</a>
-                      </li>
-                    }
-                  </ul>
-                </li>
-
-                <!-- Theme toggle -->
-                <li class="theme-toggle-item">
-                  <button
-                    type="button"
-                    class="theme-toggle"
-                    (click)="toggleTheme()"
-                    [attr.aria-label]="
-                      theme() === 'dark' ? 'Switch to light mode' : 'Switch to dark mode'
-                    "
-                    [attr.aria-pressed]="theme() === 'dark'"
-                    title="Toggle dark mode"
-                  >
-                    @if (theme() === 'dark') {
-                      <i class="fa-solid fa-sun"></i>
-                    } @else {
-                      <i class="fa-solid fa-moon"></i>
-                    }
-                  </button>
-                </li>
-              </ul>
-            </div>
-          </div>
-        </nav>
-      </div>
+      <!-- Hamburger -->
+      <button
+        type="button"
+        class="burger"
+        (click)="toggleMenu()"
+        [attr.aria-expanded]="menuOpen()"
+        aria-label="Toggle menu"
+      >
+        <span></span><span></span>
+      </button>
     </div>
   </div>
-
-  <!-- Mobile menu backdrop -->
-  @if (isMobile() && menuOpen()) {
-    <div class="nav-backdrop" (click)="closeMenu()"></div>
-  }
 </header>
+
+<!-- Full-screen mobile drawer -->
+<div class="drawer" [class.is-open]="menuOpen()" (click)="closeMenu()">
+  <nav class="drawer__inner" (click)="$event.stopPropagation()" aria-label="Mobile">
+    <ul class="drawer__list">
+      @for (item of navItems; track item.label; let i = $index) {
+        <li [style.transition-delay]="menuOpen() ? i * 60 + 80 + 'ms' : '0ms'">
+          <a
+            [routerLink]="item.path ? '/' + item.path : '/'"
+            routerLinkActive="is-active"
+            [routerLinkActiveOptions]="{ exact: item.path === '' }"
+            (click)="closeMenu()"
+          >
+            <span class="drawer__index">0{{ i + 1 }}</span>{{ item.label }}
+          </a>
+        </li>
+      }
+    </ul>
+
+    <div class="drawer__social">
+      @for (social of socialLinks; track social.label) {
+        <a [href]="social.url" target="_blank" rel="noopener" [attr.aria-label]="social.label">
+          <i [class]="social.icon" aria-hidden="true"></i>
+        </a>
+      }
+    </div>
+  </nav>
+</div>

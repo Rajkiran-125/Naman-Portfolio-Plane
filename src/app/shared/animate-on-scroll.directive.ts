@@ -1,20 +1,22 @@
 import { AfterViewInit, Directive, ElementRef, Input, OnDestroy, inject } from '@angular/core';
 
 /**
- * Lightweight replacement for WOW.js. Hides the host element until it scrolls
- * into view, then applies animate.css classes (e.g. `animated fadeInUp`).
+ * Reveal-on-scroll. Adds `is-visible` to the host the first time it enters the
+ * viewport; the actual transition is defined in styles.scss via `[data-reveal]`.
  *
- * Usage: `<div appAnimateOnScroll="fadeInUp" animateDelay="300ms">`
+ * Usage: `<div appReveal="fade" revealDelay="120">`  (delay in ms)
+ *   variants: 'up' (default) | 'fade' | 'left' | 'right' | 'zoom'
+ *
+ * Add `revealClip` for a clip-path image reveal instead of a transform.
  */
 @Directive({
-  selector: '[appAnimateOnScroll]',
+  selector: '[appReveal]',
   standalone: true,
 })
 export class AnimateOnScrollDirective implements AfterViewInit, OnDestroy {
-  /** animate.css animation name, e.g. "fadeInUp", "bounceInDown". */
-  @Input('appAnimateOnScroll') animation = 'fadeInUp';
-  /** CSS animation-delay value, e.g. "300ms". */
-  @Input() animateDelay = '0ms';
+  @Input('appReveal') variant: 'up' | 'fade' | 'left' | 'right' | 'zoom' | '' = 'up';
+  @Input() revealDelay = 0;
+  @Input() revealClip = false;
 
   private readonly host = inject(ElementRef<HTMLElement>);
   private observer?: IntersectionObserver;
@@ -22,26 +24,31 @@ export class AnimateOnScrollDirective implements AfterViewInit, OnDestroy {
   ngAfterViewInit(): void {
     const el = this.host.nativeElement as HTMLElement;
 
-    // No IntersectionObserver (or SSR): just show the element.
-    if (typeof IntersectionObserver === 'undefined') {
-      el.style.opacity = '1';
-      return;
+    if (this.revealClip) {
+      el.classList.add('clip-reveal');
+    } else {
+      el.setAttribute('data-reveal', this.variant || 'up');
+    }
+    if (this.revealDelay) {
+      el.style.transitionDelay = `${this.revealDelay}ms`;
     }
 
-    el.style.opacity = '0';
+    // No IntersectionObserver (or SSR): reveal immediately.
+    if (typeof IntersectionObserver === 'undefined') {
+      el.classList.add('is-visible');
+      return;
+    }
 
     this.observer = new IntersectionObserver(
       (entries, obs) => {
         for (const entry of entries) {
           if (entry.isIntersecting) {
-            el.style.animationDelay = this.animateDelay;
-            el.style.opacity = '1';
-            el.classList.add('animated', this.animation);
+            el.classList.add('is-visible');
             obs.unobserve(el);
           }
         }
       },
-      { threshold: 0.08 },
+      { threshold: 0.12, rootMargin: '0px 0px -8% 0px' },
     );
     this.observer.observe(el);
   }
