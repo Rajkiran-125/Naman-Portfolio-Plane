@@ -56,48 +56,40 @@
   outline-offset: 2px;
 }
 
-/* ---- Masonry (CSS columns) --------------------------------------------- */
+/* ---- Uniform grid ------------------------------------------------------- */
 .gallery__masonry {
-  column-count: 3;
-  column-gap: clamp(0.9rem, 1.6vw, 1.6rem);
-}
-/* Denser, more immersive grid on large displays. */
-@media (min-width: 1600px) {
-  .gallery__masonry { column-count: 4; }
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: clamp(0.9rem, 1.6vw, 1.6rem);
 }
 @media (max-width: 991px) {
-  .gallery__masonry { column-count: 2; }
+  .gallery__masonry { grid-template-columns: repeat(3, 1fr); }
 }
 @media (max-width: 520px) {
-  .gallery__masonry { column-count: 1; }
+  .gallery__masonry {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0.6rem;
+  }
 }
 
 .gallery__item {
   position: relative;
   display: block;
   width: 100%;
-  margin-bottom: clamp(0.9rem, 1.6vw, 1.6rem);
-  break-inside: avoid;
+  /* Every tile shares one standard size regardless of the photo's ratio. */
+  aspect-ratio: 4 / 5;
   overflow: hidden;
   background: var(--surface-2);
   cursor: pointer;
 }
 .gallery__item img {
   width: 100%;
-  height: auto;
+  height: 100%;
+  object-fit: cover;
   transition: transform 1s var(--ease), filter 0.6s var(--ease);
 }
 .gallery__item:hover img {
   transform: scale(1.05);
-}
-
-/* Wide tiles span the full width of the masonry. */
-.gallery__item.is-wide {
-  column-span: all;
-}
-.gallery__item.is-wide img {
-  max-height: 70vh;
-  object-fit: cover;
 }
 
 .gallery__overlay {
